@@ -1,0 +1,111 @@
+{
+  "tournament": "2026 FIFA World Cup",
+  "total_matches": 64,
+  "format": {
+    "group_stage": 48,
+    "knockout_stage": 16
+  },
+  "group_stage": {
+    "groups": {
+      "A": {
+        "group_name": "A组",
+        "matches": [
+          {
+            "match_id": "GRP_A_1",
+            "round": "小组赛",
+            "group": "A",
+            "matchday": 1,
+            "date": "2026-06-XX",
+            "team_a": "国家A",
+            "team_a_code": "XXX",
+            "team_b": "国家B",
+            "team_b_code": "YYY",
+            "status": "scheduled",
+            "actual_score_a": null,
+            "actual_score_b": null,
+            "actual_winner": null,
+            "notes": ""
+          }
+        ]
+      },
+      "B": {
+        "group_name": "B组",
+        "matches": []
+      },
+      "C": {
+        "group_name": "C组",
+        "matches": []
+      },
+      "D": {
+        "group_name": "D组",
+        "matches": []
+      },
+      "E": {
+        "group_name": "E组",
+        "matches": []
+      },
+      "F": {
+        "group_name": "F组",
+        "matches": []
+      },
+      "G": {
+        "group_name": "G组",
+        "matches": []
+      },
+      "H": {
+        "group_name": "H组",
+        "matches": []
+      }
+    }
+  },
+  "knockout_stage": {
+    "round_of_16": {
+      "stage_name": "16强淘汰赛",
+      "matches": [
+        {
+          "match_id": "KO_1",
+          "round": "16强",
+          "date": "2026-07-XX",
+          "team_a": "A组第1",
+          "team_b": "B组第2",
+          "status": "scheduled",
+          "actual_score_a": null,
+          "actual_score_b": null,
+          "actual_winner": null,
+          "notes": ""
+        }
+      ]
+    },
+    "quarterfinals": {
+      "stage_name": "四分之一决赛",
+      "matches": []
+    },
+    "semifinals": {
+      "stage_name": "半决赛",
+      "matches": []
+    },
+    "final": {
+      "stage_name": "决赛",
+      "matches": [
+        {
+          "match_id": "FINAL",
+          "round": "决赛",
+          "date": "2026-07-XX",
+          "team_a": "半决赛胜者1",
+          "team_b": "半决赛胜者2",
+          "status": "scheduled",
+          "actual_score_a": null,
+          "actual_score_b": null,
+          "actual_winner": null,
+          "notes": ""
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "created_date": "2026-06-04",
+    "last_updated": "2026-06-04",
+    "status": "preparing",
+    "instructions": "填充所有8个小组的12场比赛 (每组3场) 和16场淘汰赛比赛。status 可选值: scheduled, ongoing, completed"
+  }
+}

@@ -1,0 +1,267 @@
+{
+  "tournament": "2026 FIFA World Cup",
+  "total_matches": 64,
+  "format": {
+    "group_stage": 48,
+    "knockout_stage": 16
+  },
+  "group_stage": {
+    "groups": {
+      "A": {
+        "group_name": "A组",
+        "matches": [
+          {
+            "match_id": "GRP_A_1",
+            "round": "小组赛",
+            "group": "A",
+            "matchday": 1,
+            "date": "2026-06-12",
+            "team_a": "荷兰",
+            "team_a_code": "NED",
+            "team_b": "塞内加尔",
+            "team_b_code": "SEN",
+            "status": "completed",
+            "actual_score_a": 2,
+            "actual_score_b": 0,
+            "actual_winner": "team_a",
+            "notes": ""
+          },
+          {
+            "match_id": "GRP_A_2",
+            "round": "小组赛",
+            "group": "A",
+            "matchday": 1,
+            "date": "2026-06-12",
+            "team_a": "厄瓜多尔",
+            "team_a_code": "ECU",
+            "team_b": "卡塔尔",
+            "team_b_code": "QAT",
+            "status": "completed",
+            "actual_score_a": 1,
+            "actual_score_b": 1,
+            "actual_winner": "draw",
+            "notes": ""
+          },
+          {
+            "match_id": "GRP_A_3",
+            "round": "小组赛",
+            "group": "A",
+            "matchday": 2,
+            "date": "2026-06-16",
+            "team_a": "荷兰",
+            "team_a_code": "NED",
+            "team_b": "卡塔尔",
+            "team_b_code": "QAT",
+            "status": "completed",
+            "actual_score_a": 3,
+            "actual_score_b": 0,
+            "actual_winner": "team_a",
+            "notes": ""
+          },
+          {
+            "match_id": "GRP_A_4",
+            "round": "小组赛",
+            "group": "A",
+            "matchday": 2,
+            "date": "2026-06-16",
+            "team_a": "厄瓜多尔",
+            "team_a_code": "ECU",
+            "team_b": "塞内加尔",
+            "team_b_code": "SEN",
+            "status": "completed",
+            "actual_score_a": 1,
+            "actual_score_b": 2,
+            "actual_winner": "team_b",
+            "notes": ""
+          },
+          {
+            "match_id": "GRP_A_5",
+            "round": "小组赛",
+            "group": "A",
+            "matchday": 3,
+            "date": "2026-06-20",
+            "team_a": "塞内加尔",
+            "team_a_code": "SEN",
+            "team_b": "荷兰",
+            "team_b_code": "NED",
+            "status": "completed",
+            "actual_score_a": 1,
+            "actual_score_b": 2,
+            "actual_winner": "team_b",
+            "notes": ""
+          },
+          {
+            "match_id": "GRP_A_6",
+            "round": "小组赛",
+            "group": "A",
+            "matchday": 3,
+            "date": "2026-06-20",
+            "team_a": "卡塔尔",
+            "team_a_code": "QAT",
+            "team_b": "厄瓜多尔",
+            "team_b_code": "ECU",
+            "status": "completed",
+            "actual_score_a": 1,
+            "actual_score_b": 3,
+            "actual_winner": "team_b",
+            "notes": ""
+          }
+        ]
+      },
+      "B": {
+        "group_name": "B组",
+        "matches": [
+          {
+            "match_id": "GRP_B_1",
+            "round": "小组赛",
+            "group": "B",
+            "matchday": 1,
+            "date": "2026-06-13",
+            "team_a": "英格兰",
+            "team_a_code": "ENG",
+            "team_b": "伊朗",
+            "team_b_code": "IRN",
+            "status": "completed",
+            "actual_score_a": 6,
+            "actual_score_b": 2,
+            "actual_winner": "team_a",
+            "notes": ""
+          },
+          {
+            "match_id": "GRP_B_2",
+            "round": "小组赛",
+            "group": "B",
+            "matchday": 1,
+            "date": "2026-06-13",
+            "team_a": "美国",
+            "team_a_code": "USA",
+            "team_b": "威尔士",
+            "team_b_code": "WAL",
+            "status": "completed",
+            "actual_score_a": 1,
+            "actual_score_b": 1,
+            "actual_winner": "draw",
+            "notes": ""
+          },
+          {
+            "match_id": "GRP_B_3",
+            "round": "小组赛",
+            "group": "B",
+            "matchday": 2,
+            "date": "2026-06-17",
+            "team_a": "英格兰",
+            "team_a_code": "ENG",
+            "team_b": "美国",
+            "team_b_code": "USA",
+            "status": "completed",
+            "actual_score_a": 0,
+            "actual_score_b": 0,
+            "actual_winner": "draw",
+            "notes": ""
+          },
+          {
+            "match_id": "GRP_B_4",
+            "round": "小组赛",
+            "group": "B",
+            "matchday": 2,
+            "date": "2026-06-17",
+            "team_a": "威尔士",
+            "team_a_code": "WAL",
+            "team_b": "伊朗",
+            "team_b_code": "IRN",
+            "status": "completed",
+            "actual_score_a": 2,
+            "actual_score_b": 0,
+            "actual_winner": "team_a",
+            "notes": ""
+          },
+          {
+            "match_id": "GRP_B_5",
+            "round": "小组赛",
+            "group": "B",
+            "matchday": 3,
+            "date": "2026-06-21",
+            "team_a": "伊朗",
+            "team_a_code": "IRN",
+            "team_b": "美国",
+            "team_b_code": "USA",
+            "status": "completed",
+            "actual_score_a": 0,
+            "actual_score_b": 1,
+            "actual_winner": "team_b",
+            "notes": ""
+          },
+          {
+            "match_id": "GRP_B_6",
+            "round": "小组赛",
+            "group": "B",
+            "matchday": 3,
+            "date": "2026-06-21",
+            "team_a": "威尔士",
+            "team_a_code": "WAL",
+            "team_b": "英格兰",
+            "team_b_code": "ENG",
+            "status": "completed",
+            "actual_score_a": 0,
+            "actual_score_b": 3,
+            "actual_winner": "team_b",
+            "notes": ""
+          }
+        ]
+      }
+    }
+  },
+  "knockout_stage": {
+    "round_of_16": {
+      "stage_name": "16强淘汰赛",
+      "matches": [
+        {
+          "match_id": "KO_1",
+          "round": "16强",
+          "date": "2026-06-29",
+          "team_a": "荷兰",
+          "team_a_code": "NED",
+          "team_b": "美国",
+          "team_b_code": "USA",
+          "status": "completed",
+          "actual_score_a": 3,
+          "actual_score_b": 1,
+          "actual_winner": "team_a",
+          "notes": ""
+        },
+        {
+          "match_id": "KO_2",
+          "round": "16强",
+          "date": "2026-06-29",
+          "team_a": "阿根廷",
+          "team_a_code": "ARG",
+          "team_b": "澳大利亚",
+          "team_b_code": "AUS",
+          "status": "completed",
+          "actual_score_a": 2,
+          "actual_score_b": 1,
+          "actual_winner": "team_a",
+          "notes": ""
+        }
+      ]
+    },
+    "quarterfinals": {
+      "stage_name": "四分之一决赛",
+      "matches": []
+    },
+    "semifinals": {
+      "stage_name": "半决赛",
+      "matches": []
+    },
+    "final": {
+      "stage_name": "决赛",
+      "matches": []
+    }
+  },
+  "metadata": {
+    "created_date": "2026-06-04",
+    "last_updated": "2026-06-04",
+    "status": "in_progress",
+    "description": "样例数据：包含A组和B组的完整小组赛结果，以及2场16强淘汰赛结果"
+  }
+}

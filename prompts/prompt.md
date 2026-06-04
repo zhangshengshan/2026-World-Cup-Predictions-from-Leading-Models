@@ -32,56 +32,56 @@
 {
   "model_name": "你的模型名称",
   "groups": {
-    "A": { "1st": "墨西哥", "2nd": "韩国" },
-    "B": { "1st": "瑞士", "2nd": "加拿大" },
-    "C": { "1st": "巴西", "2nd": "摩洛哥" },
-    "D": { "1st": "美国", "2nd": "巴拉圭" },
-    "E": { "1st": "德国", "2nd": "厄瓜多尔" },
-    "F": { "1st": "荷兰", "2nd": "日本" },
-    "G": { "1st": "比利时", "2nd": "伊朗" },
-    "H": { "1st": "西班牙", "2nd": "乌拉圭" },
-    "I": { "1st": "法国", "2nd": "塞内加尔" },
-    "J": { "1st": "阿根廷", "2nd": "阿尔及利亚" },
-    "K": { "1st": "葡萄牙", "2nd": "哥伦比亚" },
-    "L": { "1st": "英格兰", "2nd": "克罗地亚" }
+    "A": { "1st": "第一名", "2nd": "第二名" },
+    "B": { "1st": "第一名", "2nd": "第二名" },
+    "C": { "1st": "第一名", "2nd": "第二名" },
+    "D": { "1st": "第一名", "2nd": "第二名" },
+    "E": { "1st": "第一名", "2nd": "第二名" },
+    "F": { "1st": "第一名", "2nd": "第二名" },
+    "G": { "1st": "第一名", "2nd": "第二名" },
+    "H": { "1st": "第一名", "2nd": "第二名" },
+    "I": { "1st": "第一名", "2nd": "第二名" },
+    "J": { "1st": "第一名", "2nd": "第二名" },
+    "K": { "1st": "第一名", "2nd": "第二名" },
+    "L": { "1st": "第一名", "2nd": "第二名" }
   },
   "knockout": {
     "round_of_32": [
-      { "match": "A1 vs B2", "winner": "..." },
-      { "match": "C1 vs D2", "winner": "..." },
-      { "match": "E1 vs F2", "winner": "..." },
-      { "match": "G1 vs H2", "winner": "..." },
-      { "match": "I1 vs J2", "winner": "..." },
-      { "match": "K1 vs L2", "winner": "..." },
-      { "match": "B1 vs A2", "winner": "..." },
-      { "match": "D1 vs C2", "winner": "..." },
-      { "match": "F1 vs E2", "winner": "..." },
-      { "match": "H1 vs G2", "winner": "..." },
-      { "match": "J1 vs I2", "winner": "..." },
-      { "match": "L1 vs K2", "winner": "..." }
+      { "match": "A1 vs B2", "winner": "胜者" },
+      { "match": "C1 vs D2", "winner": "胜者" },
+      { "match": "E1 vs F2", "winner": "胜者" },
+      { "match": "G1 vs H2", "winner": "胜者" },
+      { "match": "I1 vs J2", "winner": "胜者" },
+      { "match": "K1 vs L2", "winner": "胜者" },
+      { "match": "B1 vs A2", "winner": "胜者" },
+      { "match": "D1 vs C2", "winner": "胜者" },
+      { "match": "F1 vs E2", "winner": "胜者" },
+      { "match": "H1 vs G2", "winner": "胜者" },
+      { "match": "J1 vs I2", "winner": "胜者" },
+      { "match": "L1 vs K2", "winner": "胜者" }
     ],
     "round_of_16": [
-      { "match": "R01胜者 vs R02胜者", "winner": "..." },
-      { "match": "R03胜者 vs R04胜者", "winner": "..." },
-      { "match": "R05胜者 vs R06胜者", "winner": "..." },
-      { "match": "R07胜者 vs R08胜者", "winner": "..." },
-      { "match": "R09胜者 vs R10胜者", "winner": "..." },
-      { "match": "R11胜者 vs R12胜者", "winner": "..." },
-      { "match": "R13胜者 vs R14胜者", "winner": "..." },
-      { "match": "R15胜者 vs R16胜者", "winner": "..." }
+      { "match": "R01胜者 vs R02胜者", "winner": "胜者" },
+      { "match": "R03胜者 vs R04胜者", "winner": "胜者" },
+      { "match": "R05胜者 vs R06胜者", "winner": "胜者" },
+      { "match": "R07胜者 vs R08胜者", "winner": "胜者" },
+      { "match": "R09胜者 vs R10胜者", "winner": "胜者" },
+      { "match": "R11胜者 vs R12胜者", "winner": "胜者" },
+      { "match": "R13胜者 vs R14胜者", "winner": "胜者" },
+      { "match": "R15胜者 vs R16胜者", "winner": "胜者" }
     ],
     "quarterfinals": [
-      { "match": "R17胜者 vs R18胜者", "winner": "..." },
-      { "match": "R19胜者 vs R20胜者", "winner": "..." },
-      { "match": "R21胜者 vs R22胜者", "winner": "..." },
-      { "match": "R23胜者 vs R24胜者", "winner": "..." }
+      { "match": "R17胜者 vs R18胜者", "winner": "胜者" },
+      { "match": "R19胜者 vs R20胜者", "winner": "胜者" },
+      { "match": "R21胜者 vs R22胜者", "winner": "胜者" },
+      { "match": "R23胜者 vs R24胜者", "winner": "胜者" }
     ],
     "semifinals": [
-      { "match": "Q1胜者 vs Q2胜者", "winner": "..." },
-      { "match": "Q3胜者 vs Q4胜者", "winner": "..." }
+      { "match": "Q1胜者 vs Q2胜者", "winner": "胜者" },
+      { "match": "Q3胜者 vs Q4胜者", "winner": "胜者" }
     ],
-    "third_place": { "match": "S1败者 vs S2败者", "winner": "..." },
-    "final": { "match": "S1胜者 vs S2胜者", "winner": "..." }
+    "third_place": { "match": "S1败者 vs S2败者", "winner": "胜者" },
+    "final": { "match": "S1胜者 vs S2胜者", "winner": "胜者" }
   }
 }
 ```

@@ -11,746 +11,99 @@ h1 { text-align:center; font-size:2rem; margin-bottom:4px; background:linear-gra
 .subtitle { text-align:center; color:#64748b; margin-bottom:24px; font-size:0.9rem; }
 .section { background:#1e293b; border-radius:12px; padding:20px 24px; margin-bottom:20px; border:1px solid #334155; }
 .section h2 { font-size:1.2rem; margin-bottom:14px; color:#f59e0b; border-bottom:2px solid #334155; padding-bottom:8px; display:flex; align-items:center; gap:8px; }
-.group-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:16px; }
+.group-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; }
 .group-card { background:#0f172a; border-radius:8px; padding:14px; border:1px solid #334155; }
 .group-card h3 { color:#38bdf8; margin-bottom:8px; font-size:1rem; }
-table { width:100%; border-collapse:collapse; font-size:0.82rem; }
-th { text-align:left; padding:4px 6px; color:#94a3b8; font-weight:500; border-bottom:1px solid #334155; font-size:0.72rem; }
-td { padding:4px 6px; border-bottom:1px solid #1e293b; }
-.rank-1 { color:#22c55e; font-weight:700; }
-.rank-2 { color:#38bdf8; font-weight:700; }
-.match-row { display:grid; grid-template-columns:28px 1fr 42px 1fr 28px; align-items:center; padding:6px 0; }
-.match-sep { border-bottom:1px solid #1e293b; }
-.team-name { font-weight:500; font-size:0.88rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.score-num { font-weight:700; color:#f59e0b; font-size:1.05rem; text-align:center; }
-.tw { background:rgba(34,197,94,0.25); border-radius:4px; padding:2px 6px; font-weight:700; color:#22c55e; }
-.tl { color:#64748b; }
-.reason { font-size:0.7rem; color:#64748b; font-style:italic; }
-.stats-row { display:flex; gap:16px; flex-wrap:wrap; }
-.stat-card { background:#0f172a; border-radius:8px; padding:12px 18px; text-align:center; border:1px solid #334155; flex:1; min-width:100px; }
-.stat-card .num { font-size:1.6rem; font-weight:700; color:#f59e0b; }
-.stat-card .lbl { font-size:0.7rem; color:#94a3b8; margin-top:3px; }
+table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+th { text-align:left; padding:5px 6px; color:#94a3b8; font-weight:500; border-bottom:1px solid #334155; font-size:0.72rem; }
+td { padding:5px 6px; border-bottom:1px solid #1e293b; }
+.r1 { color:#22c55e; font-weight:700; }
+.r2 { color:#38bdf8; font-weight:700; }
+.adv-grid { display:flex; flex-wrap:wrap; gap:8px; }
+.adv-item { background:#0f172a; padding:5px 10px; border-radius:5px; font-size:0.78rem; border:1px solid #334155; }
+.adv-label { color:#94a3b8; }
+.adv-team { color:#f59e0b; font-weight:600; }
 .footer { text-align:center; color:#475569; font-size:0.78rem; margin-top:24px; padding:12px; }
-.flag-em { font-size:1.2rem; }
 
-/* === BRACKET === */
 .bracket-wrap { overflow-x:auto; padding:10px 0; }
-.bracket-grid { display:grid; gap:0; min-width:800px; align-items:stretch; }
-.rl { font-size:0.72rem; color:#94a3b8; font-weight:600; text-align:center; padding:4px; border-bottom:1px solid #334155; display:flex; align-items:center; justify-content:center; text-transform:uppercase; letter-spacing:1px; }
+.bracket-grid { display:grid; gap:0; min-width:750px; align-items:stretch; }
+.rl { font-size:0.72rem; color:#94a3b8; font-weight:600; text-align:center; padding:4px; border-bottom:1px solid #334155; display:flex; align-items:center; justify-content:center; letter-spacing:1px; }
 .bracket-match { display:flex; align-items:center; padding:2px; }
 .bc { background:#0f172a; border:1px solid #334155; border-radius:6px; padding:3px 6px; width:100%; display:grid; grid-template-columns:20px 1fr 30px 1fr 20px; align-items:center; gap:2px; font-size:0.72rem; line-height:1.3; }
 .bc > span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .bc .bw { background:rgba(34,197,94,0.25); border-radius:3px; padding:1px 4px; font-weight:700; color:#22c55e; }
-.bc .bl { color:#94a3b8; }
+.bc .bl { color:#64748b; }
 .bc .bs { color:#f59e0b; font-weight:700; text-align:center; }
 .bf .bc { border-color:#f59e0b; border-width:2px; }
 .tp-section { text-align:center; margin-top:8px; padding:6px; background:#0f172a; border-radius:6px; border:1px solid #334155; }
 .tp-label { color:#94a3b8; font-size:0.75rem; margin-right:8px; }
 .tp-match { display:inline-block; }
 .tp-match .bc { border-color:#64748b; }
-@media (max-width:768px) { .bc { font-size:0.65rem; padding:3px 5px; } }
 </style>
 </head>
 <body>
 <h1>🏆 2026 FIFA 世界杯预测</h1>
-<p class="subtitle">GPT-4 · 2026-06-04 · 共 104 场预测</p>
-
-
-<div class="section">
-<h2>📊 预测概览</h2>
-<div class="stats-row">
-<div class="stat-card"><div class="num">104</div><div class="lbl">总预测场次</div></div>
-<div class="stat-card"><div class="num">92</div><div class="lbl">有胜负预测</div></div>
-<div class="stat-card"><div class="num">12</div><div class="lbl">平局预测</div></div>
-<div class="stat-card"><div class="num">61%</div><div class="lbl">平均置信度</div></div>
-</div>
-</div>
-<div class="section"><h2>📋 小组赛预测</h2><div class="group-grid">
-<div class="group-card"><h3>A组</h3>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇲🇽</span></div>
-<div style="text-align:right;"><span class="team-name tw">墨西哥</span></div>
-<span class="score-num">4:2</span>
-<div style="text-align:left;"><span class="team-name tl">南非</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇿🇦</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇰🇷</span></div>
-<div style="text-align:right;"><span class="team-name tw">韩国</span></div>
-<span class="score-num">3:2</span>
-<div style="text-align:left;"><span class="team-name tl">捷克</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇨🇿</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇲🇽</span></div>
-<div style="text-align:right;"><span class="team-name tl">墨西哥</span></div>
-<span class="score-num">3:4</span>
-<div style="text-align:left;"><span class="team-name tw">韩国</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇰🇷</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇨🇿</span></div>
-<div style="text-align:right;"><span class="team-name tw">捷克</span></div>
-<span class="score-num">4:3</span>
-<div style="text-align:left;"><span class="team-name tl">南非</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇿🇦</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇲🇽</span></div>
-<div style="text-align:right;"><span class="team-name tw">墨西哥</span></div>
-<span class="score-num">4:3</span>
-<div style="text-align:left;"><span class="team-name tl">捷克</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇨🇿</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇿🇦</span></div>
-<div style="text-align:right;"><span class="team-name tl">南非</span></div>
-<span class="score-num">3:4</span>
-<div style="text-align:left;"><span class="team-name tw">韩国</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇰🇷</span></div>
-</div>
-</div>
-<div class="group-card"><h3>B组</h3>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇨🇦</span></div>
-<div style="text-align:right;"><span class="team-name tl">加拿大</span></div>
-<span class="score-num">2:4</span>
-<div style="text-align:left;"><span class="team-name tw">波黑</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇧🇦</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇶🇦</span></div>
-<div style="text-align:right;"><span class="team-name tl">卡塔尔</span></div>
-<span class="score-num">2:3</span>
-<div style="text-align:left;"><span class="team-name tw">瑞士</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇨🇭</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇨🇦</span></div>
-<div style="text-align:right;"><span class="team-name tl">加拿大</span></div>
-<span class="score-num">3:2</span>
-<div style="text-align:left;"><span class="team-name tw">卡塔尔</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇶🇦</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇨🇭</span></div>
-<div style="text-align:right;"><span class="team-name tw">瑞士</span></div>
-<span class="score-num">4:2</span>
-<div style="text-align:left;"><span class="team-name tl">波黑</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇧🇦</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇨🇦</span></div>
-<div style="text-align:right;"><span class="team-name tl">加拿大</span></div>
-<span class="score-num">2:3</span>
-<div style="text-align:left;"><span class="team-name tw">瑞士</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇨🇭</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇧🇦</span></div>
-<div style="text-align:right;"><span class="team-name tl">波黑</span></div>
-<span class="score-num">3:2</span>
-<div style="text-align:left;"><span class="team-name tw">卡塔尔</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇶🇦</span></div>
-</div>
-</div>
-<div class="group-card"><h3>C组</h3>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇧🇷</span></div>
-<div style="text-align:right;"><span class="team-name tl">巴西</span></div>
-<span class="score-num">3:4</span>
-<div style="text-align:left;"><span class="team-name tw">摩洛哥</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇲🇦</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇭🇹</span></div>
-<div style="text-align:right;"><span class="team-name tl">海地</span></div>
-<span class="score-num">1:3</span>
-<div style="text-align:left;"><span class="team-name tw">苏格兰</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇬🇧</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇧🇷</span></div>
-<div style="text-align:right;"><span class="team-name tw">巴西</span></div>
-<span class="score-num">4:2</span>
-<div style="text-align:left;"><span class="team-name tl">海地</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇭🇹</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇬🇧</span></div>
-<div style="text-align:right;"><span class="team-name tw">苏格兰</span></div>
-<span class="score-num">4:3</span>
-<div style="text-align:left;"><span class="team-name tl">摩洛哥</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇲🇦</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇧🇷</span></div>
-<div style="text-align:right;"><span class="team-name tw">巴西</span></div>
-<span class="score-num">4:3</span>
-<div style="text-align:left;"><span class="team-name tl">苏格兰</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇬🇧</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇲🇦</span></div>
-<div style="text-align:right;"><span class="team-name tw">摩洛哥</span></div>
-<span class="score-num">4:3</span>
-<div style="text-align:left;"><span class="team-name tl">海地</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇭🇹</span></div>
-</div>
-</div>
-<div class="group-card"><h3>D组</h3>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇺🇸</span></div>
-<div style="text-align:right;"><span class="team-name ">美国</span></div>
-<span class="score-num">3:3</span>
-<div style="text-align:left;"><span class="team-name ">巴拉圭</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇵🇾</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇦🇺</span></div>
-<div style="text-align:right;"><span class="team-name ">澳洲</span></div>
-<span class="score-num">3:3</span>
-<div style="text-align:left;"><span class="team-name ">土耳其</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇹🇷</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇺🇸</span></div>
-<div style="text-align:right;"><span class="team-name tw">美国</span></div>
-<span class="score-num">2:3</span>
-<div style="text-align:left;"><span class="team-name tl">澳洲</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇦🇺</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇹🇷</span></div>
-<div style="text-align:right;"><span class="team-name tl">土耳其</span></div>
-<span class="score-num">2:3</span>
-<div style="text-align:left;"><span class="team-name tw">巴拉圭</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇵🇾</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇺🇸</span></div>
-<div style="text-align:right;"><span class="team-name tl">美国</span></div>
-<span class="score-num">2:3</span>
-<div style="text-align:left;"><span class="team-name tw">土耳其</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇹🇷</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇵🇾</span></div>
-<div style="text-align:right;"><span class="team-name tw">巴拉圭</span></div>
-<span class="score-num">4:3</span>
-<div style="text-align:left;"><span class="team-name tl">澳洲</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇦🇺</span></div>
-</div>
-</div>
-<div class="group-card"><h3>E组</h3>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇩🇪</span></div>
-<div style="text-align:right;"><span class="team-name tw">德国</span></div>
-<span class="score-num">5:1</span>
-<div style="text-align:left;"><span class="team-name tl">库拉索</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇨🇼</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇨🇮</span></div>
-<div style="text-align:right;"><span class="team-name ">科特迪瓦</span></div>
-<span class="score-num">2:2</span>
-<div style="text-align:left;"><span class="team-name ">厄瓜多尔</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇪🇨</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇩🇪</span></div>
-<div style="text-align:right;"><span class="team-name tl">德国</span></div>
-<span class="score-num">3:2</span>
-<div style="text-align:left;"><span class="team-name tw">科特迪瓦</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇨🇮</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇪🇨</span></div>
-<div style="text-align:right;"><span class="team-name tw">厄瓜多尔</span></div>
-<span class="score-num">4:1</span>
-<div style="text-align:left;"><span class="team-name tl">库拉索</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇨🇼</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇩🇪</span></div>
-<div style="text-align:right;"><span class="team-name tw">德国</span></div>
-<span class="score-num">4:3</span>
-<div style="text-align:left;"><span class="team-name tl">厄瓜多尔</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇪🇨</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇨🇼</span></div>
-<div style="text-align:right;"><span class="team-name tw">库拉索</span></div>
-<span class="score-num">2:3</span>
-<div style="text-align:left;"><span class="team-name tl">科特迪瓦</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇨🇮</span></div>
-</div>
-</div>
-<div class="group-card"><h3>F组</h3>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇳🇱</span></div>
-<div style="text-align:right;"><span class="team-name tw">荷兰</span></div>
-<span class="score-num">4:3</span>
-<div style="text-align:left;"><span class="team-name tl">日本</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇯🇵</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇸🇪</span></div>
-<div style="text-align:right;"><span class="team-name ">瑞典</span></div>
-<span class="score-num">3:3</span>
-<div style="text-align:left;"><span class="team-name ">突尼斯</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇹🇳</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇳🇱</span></div>
-<div style="text-align:right;"><span class="team-name tl">荷兰</span></div>
-<span class="score-num">3:4</span>
-<div style="text-align:left;"><span class="team-name tw">瑞典</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇸🇪</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇹🇳</span></div>
-<div style="text-align:right;"><span class="team-name ">突尼斯</span></div>
-<span class="score-num">3:3</span>
-<div style="text-align:left;"><span class="team-name ">日本</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇯🇵</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇳🇱</span></div>
-<div style="text-align:right;"><span class="team-name tl">荷兰</span></div>
-<span class="score-num">3:4</span>
-<div style="text-align:left;"><span class="team-name tw">突尼斯</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇹🇳</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇯🇵</span></div>
-<div style="text-align:right;"><span class="team-name ">日本</span></div>
-<span class="score-num">3:3</span>
-<div style="text-align:left;"><span class="team-name ">瑞典</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇸🇪</span></div>
-</div>
-</div>
-<div class="group-card"><h3>G组</h3>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇧🇪</span></div>
-<div style="text-align:right;"><span class="team-name tw">比利时</span></div>
-<span class="score-num">3:2</span>
-<div style="text-align:left;"><span class="team-name tl">埃及</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇪🇬</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇮🇷</span></div>
-<div style="text-align:right;"><span class="team-name tw">伊朗</span></div>
-<span class="score-num">4:2</span>
-<div style="text-align:left;"><span class="team-name tl">新西兰</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇳🇿</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇧🇪</span></div>
-<div style="text-align:right;"><span class="team-name tw">比利时</span></div>
-<span class="score-num">5:2</span>
-<div style="text-align:left;"><span class="team-name tl">伊朗</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇮🇷</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇳🇿</span></div>
-<div style="text-align:right;"><span class="team-name tw">新西兰</span></div>
-<span class="score-num">3:2</span>
-<div style="text-align:left;"><span class="team-name tl">埃及</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇪🇬</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇧🇪</span></div>
-<div style="text-align:right;"><span class="team-name ">比利时</span></div>
-<span class="score-num">4:4</span>
-<div style="text-align:left;"><span class="team-name ">新西兰</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇳🇿</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇪🇬</span></div>
-<div style="text-align:right;"><span class="team-name tl">埃及</span></div>
-<span class="score-num">2:3</span>
-<div style="text-align:left;"><span class="team-name tw">伊朗</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇮🇷</span></div>
-</div>
-</div>
-<div class="group-card"><h3>H组</h3>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇪🇸</span></div>
-<div style="text-align:right;"><span class="team-name tw">西班牙</span></div>
-<span class="score-num">4:1</span>
-<div style="text-align:left;"><span class="team-name tl">佛得角</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇨🇻</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇸🇦</span></div>
-<div style="text-align:right;"><span class="team-name tl">沙特</span></div>
-<span class="score-num">3:4</span>
-<div style="text-align:left;"><span class="team-name tw">乌拉圭</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇺🇾</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇪🇸</span></div>
-<div style="text-align:right;"><span class="team-name tw">西班牙</span></div>
-<span class="score-num">4:3</span>
-<div style="text-align:left;"><span class="team-name tl">沙特</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇸🇦</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇺🇾</span></div>
-<div style="text-align:right;"><span class="team-name tw">乌拉圭</span></div>
-<span class="score-num">3:2</span>
-<div style="text-align:left;"><span class="team-name tl">佛得角</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇨🇻</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇪🇸</span></div>
-<div style="text-align:right;"><span class="team-name tl">西班牙</span></div>
-<span class="score-num">3:4</span>
-<div style="text-align:left;"><span class="team-name tw">乌拉圭</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇺🇾</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇨🇻</span></div>
-<div style="text-align:right;"><span class="team-name ">佛得角</span></div>
-<span class="score-num">2:2</span>
-<div style="text-align:left;"><span class="team-name ">沙特</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇸🇦</span></div>
-</div>
-</div>
-<div class="group-card"><h3>I组</h3>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇫🇷</span></div>
-<div style="text-align:right;"><span class="team-name tw">法国</span></div>
-<span class="score-num">4:2</span>
-<div style="text-align:left;"><span class="team-name tl">塞内加尔</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇸🇳</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇮🇶</span></div>
-<div style="text-align:right;"><span class="team-name tw">伊拉克</span></div>
-<span class="score-num">2:3</span>
-<div style="text-align:left;"><span class="team-name tl">挪威</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇳🇴</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇫🇷</span></div>
-<div style="text-align:right;"><span class="team-name tw">法国</span></div>
-<span class="score-num">5:2</span>
-<div style="text-align:left;"><span class="team-name tl">伊拉克</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇮🇶</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇳🇴</span></div>
-<div style="text-align:right;"><span class="team-name tw">挪威</span></div>
-<span class="score-num">3:2</span>
-<div style="text-align:left;"><span class="team-name tl">塞内加尔</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇸🇳</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇫🇷</span></div>
-<div style="text-align:right;"><span class="team-name tw">法国</span></div>
-<span class="score-num">3:4</span>
-<div style="text-align:left;"><span class="team-name tl">挪威</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇳🇴</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇸🇳</span></div>
-<div style="text-align:right;"><span class="team-name tw">塞内加尔</span></div>
-<span class="score-num">3:2</span>
-<div style="text-align:left;"><span class="team-name tl">伊拉克</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇮🇶</span></div>
-</div>
-</div>
-<div class="group-card"><h3>J组</h3>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇦🇷</span></div>
-<div style="text-align:right;"><span class="team-name tw">阿根廷</span></div>
-<span class="score-num">4:3</span>
-<div style="text-align:left;"><span class="team-name tl">阿尔及利亚</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇩🇿</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇦🇹</span></div>
-<div style="text-align:right;"><span class="team-name tw">奥地利</span></div>
-<span class="score-num">3:2</span>
-<div style="text-align:left;"><span class="team-name tl">约旦</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇯🇴</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇦🇷</span></div>
-<div style="text-align:right;"><span class="team-name tw">阿根廷</span></div>
-<span class="score-num">4:2</span>
-<div style="text-align:left;"><span class="team-name tl">奥地利</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇦🇹</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇯🇴</span></div>
-<div style="text-align:right;"><span class="team-name tl">约旦</span></div>
-<span class="score-num">2:3</span>
-<div style="text-align:left;"><span class="team-name tw">阿尔及利亚</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇩🇿</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇦🇷</span></div>
-<div style="text-align:right;"><span class="team-name tw">阿根廷</span></div>
-<span class="score-num">4:2</span>
-<div style="text-align:left;"><span class="team-name tl">约旦</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇯🇴</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇩🇿</span></div>
-<div style="text-align:right;"><span class="team-name tw">阿尔及利亚</span></div>
-<span class="score-num">4:2</span>
-<div style="text-align:left;"><span class="team-name tl">奥地利</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇦🇹</span></div>
-</div>
-</div>
-<div class="group-card"><h3>K组</h3>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇵🇹</span></div>
-<div style="text-align:right;"><span class="team-name tw">葡萄牙</span></div>
-<span class="score-num">4:1</span>
-<div style="text-align:left;"><span class="team-name tl">刚果</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇨🇩</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇺🇿</span></div>
-<div style="text-align:right;"><span class="team-name ">乌兹别克</span></div>
-<span class="score-num">2:2</span>
-<div style="text-align:left;"><span class="team-name ">哥伦比亚</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇨🇴</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇵🇹</span></div>
-<div style="text-align:right;"><span class="team-name tw">葡萄牙</span></div>
-<span class="score-num">4:1</span>
-<div style="text-align:left;"><span class="team-name tl">乌兹别克</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇺🇿</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇨🇴</span></div>
-<div style="text-align:right;"><span class="team-name tw">哥伦比亚</span></div>
-<span class="score-num">4:2</span>
-<div style="text-align:left;"><span class="team-name tl">刚果</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇨🇩</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇵🇹</span></div>
-<div style="text-align:right;"><span class="team-name tw">葡萄牙</span></div>
-<span class="score-num">4:2</span>
-<div style="text-align:left;"><span class="team-name tl">哥伦比亚</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇨🇴</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇨🇩</span></div>
-<div style="text-align:right;"><span class="team-name tw">刚果</span></div>
-<span class="score-num">3:2</span>
-<div style="text-align:left;"><span class="team-name tl">乌兹别克</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇺🇿</span></div>
-</div>
-</div>
-<div class="group-card"><h3>L组</h3>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇬🇧</span></div>
-<div style="text-align:right;"><span class="team-name tw">英格兰</span></div>
-<span class="score-num">5:3</span>
-<div style="text-align:left;"><span class="team-name tl">克罗地亚</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇭🇷</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇬🇭</span></div>
-<div style="text-align:right;"><span class="team-name tl">加纳</span></div>
-<span class="score-num">1:3</span>
-<div style="text-align:left;"><span class="team-name tw">巴拿马</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇵🇦</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇬🇧</span></div>
-<div style="text-align:right;"><span class="team-name tw">英格兰</span></div>
-<span class="score-num">5:4</span>
-<div style="text-align:left;"><span class="team-name tl">加纳</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇬🇭</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇵🇦</span></div>
-<div style="text-align:right;"><span class="team-name tl">巴拿马</span></div>
-<span class="score-num">3:5</span>
-<div style="text-align:left;"><span class="team-name tw">克罗地亚</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇭🇷</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇬🇧</span></div>
-<div style="text-align:right;"><span class="team-name tw">英格兰</span></div>
-<span class="score-num">4:2</span>
-<div style="text-align:left;"><span class="team-name tl">巴拿马</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇵🇦</span></div>
-</div>
-
-<div class="match-row match-sep">
-<div style="text-align:right;"><span style="font-size:1.2rem">🇭🇷</span></div>
-<div style="text-align:right;"><span class="team-name tw">克罗地亚</span></div>
-<span class="score-num">4:2</span>
-<div style="text-align:left;"><span class="team-name tl">加纳</span></div>
-<div style="text-align:left;"><span style="font-size:1.2rem">🇬🇭</span></div>
-</div>
-</div>
-</div></div>
-<div class="section"><h2>🏅 小组排名 & 晋级球队</h2><div class="group-grid">
-<div class="group-card"><h3>A组</h3><table><tr><th>#</th><th>球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>进</th><th>失</th><th>净</th><th>分</th></tr>
-<tr class="rank-1"><td>🥇</td><td><span style="font-size:1.2rem">🇰🇷</span> 韩国</td><td>3</td><td>3</td><td>0</td><td>0</td><td>11</td><td>8</td><td>3</td><td><strong>9</strong></td></tr>
-<tr class="rank-2"><td>🥈</td><td><span style="font-size:1.2rem">🇲🇽</span> 墨西哥</td><td>3</td><td>2</td><td>0</td><td>1</td><td>11</td><td>9</td><td>2</td><td><strong>6</strong></td></tr>
-<tr class=""><td>3</td><td><span style="font-size:1.2rem">🇨🇿</span> 捷克</td><td>3</td><td>1</td><td>0</td><td>2</td><td>9</td><td>10</td><td>-1</td><td><strong>3</strong></td></tr>
-<tr class=""><td>4</td><td><span style="font-size:1.2rem">🇿🇦</span> 南非</td><td>3</td><td>0</td><td>0</td><td>3</td><td>8</td><td>12</td><td>-4</td><td><strong>0</strong></td></tr>
+<p class="subtitle">GPT-4</p>
+
+<div class="section"><h2>📋 小组出线预测</h2><div class="group-grid">
+<div class="group-card"><h3>A组</h3><table><tr><th>排名</th><th>球队</th></tr>
+<tr class="r1"><td>🥇 第1</td><td><span style="font-size:1.2rem">🇲🇽</span> 墨西哥</td></tr>
+<tr class="r2"><td>🥈 第2</td><td><span style="font-size:1.2rem">🇰🇷</span> 韩国</td></tr>
 </table></div>
-<div class="group-card"><h3>B组</h3><table><tr><th>#</th><th>球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>进</th><th>失</th><th>净</th><th>分</th></tr>
-<tr class="rank-1"><td>🥇</td><td><span style="font-size:1.2rem">🇨🇭</span> 瑞士</td><td>3</td><td>3</td><td>0</td><td>0</td><td>10</td><td>6</td><td>4</td><td><strong>9</strong></td></tr>
-<tr class="rank-2"><td>🥈</td><td><span style="font-size:1.2rem">🇧🇦</span> 波黑</td><td>3</td><td>2</td><td>0</td><td>1</td><td>9</td><td>8</td><td>1</td><td><strong>6</strong></td></tr>
-<tr class=""><td>3</td><td><span style="font-size:1.2rem">🇨🇦</span> 加拿大</td><td>3</td><td>1</td><td>0</td><td>2</td><td>7</td><td>9</td><td>-2</td><td><strong>3</strong></td></tr>
-<tr class=""><td>4</td><td><span style="font-size:1.2rem">🇶🇦</span> 卡塔尔</td><td>3</td><td>0</td><td>0</td><td>3</td><td>6</td><td>9</td><td>-3</td><td><strong>0</strong></td></tr>
+<div class="group-card"><h3>B组</h3><table><tr><th>排名</th><th>球队</th></tr>
+<tr class="r1"><td>🥇 第1</td><td><span style="font-size:1.2rem">🇨🇭</span> 瑞士</td></tr>
+<tr class="r2"><td>🥈 第2</td><td><span style="font-size:1.2rem">🇨🇦</span> 加拿大</td></tr>
 </table></div>
-<div class="group-card"><h3>C组</h3><table><tr><th>#</th><th>球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>进</th><th>失</th><th>净</th><th>分</th></tr>
-<tr class="rank-1"><td>🥇</td><td><span style="font-size:1.2rem">🇧🇷</span> 巴西</td><td>3</td><td>2</td><td>0</td><td>1</td><td>11</td><td>9</td><td>2</td><td><strong>6</strong></td></tr>
-<tr class="rank-2"><td>🥈</td><td><span style="font-size:1.2rem">🇬🇧</span> 苏格兰</td><td>3</td><td>2</td><td>0</td><td>1</td><td>10</td><td>8</td><td>2</td><td><strong>6</strong></td></tr>
-<tr class=""><td>3</td><td><span style="font-size:1.2rem">🇲🇦</span> 摩洛哥</td><td>3</td><td>2</td><td>0</td><td>1</td><td>11</td><td>10</td><td>1</td><td><strong>6</strong></td></tr>
-<tr class=""><td>4</td><td><span style="font-size:1.2rem">🇭🇹</span> 海地</td><td>3</td><td>0</td><td>0</td><td>3</td><td>6</td><td>11</td><td>-5</td><td><strong>0</strong></td></tr>
+<div class="group-card"><h3>C组</h3><table><tr><th>排名</th><th>球队</th></tr>
+<tr class="r1"><td>🥇 第1</td><td><span style="font-size:1.2rem">🇧🇷</span> 巴西</td></tr>
+<tr class="r2"><td>🥈 第2</td><td><span style="font-size:1.2rem">🇲🇦</span> 摩洛哥</td></tr>
 </table></div>
-<div class="group-card"><h3>D组</h3><table><tr><th>#</th><th>球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>进</th><th>失</th><th>净</th><th>分</th></tr>
-<tr class="rank-1"><td>🥇</td><td><span style="font-size:1.2rem">🇵🇾</span> 巴拉圭</td><td>3</td><td>2</td><td>1</td><td>0</td><td>10</td><td>8</td><td>2</td><td><strong>7</strong></td></tr>
-<tr class="rank-2"><td>🥈</td><td><span style="font-size:1.2rem">🇦🇺</span> 澳洲</td><td>3</td><td>1</td><td>1</td><td>1</td><td>9</td><td>9</td><td>0</td><td><strong>4</strong></td></tr>
-<tr class=""><td>3</td><td><span style="font-size:1.2rem">🇹🇷</span> 土耳其</td><td>3</td><td>1</td><td>1</td><td>1</td><td>8</td><td>8</td><td>0</td><td><strong>4</strong></td></tr>
-<tr class=""><td>4</td><td><span style="font-size:1.2rem">🇺🇸</span> 美国</td><td>3</td><td>0</td><td>1</td><td>2</td><td>7</td><td>9</td><td>-2</td><td><strong>1</strong></td></tr>
+<div class="group-card"><h3>D组</h3><table><tr><th>排名</th><th>球队</th></tr>
+<tr class="r1"><td>🥇 第1</td><td><span style="font-size:1.2rem">🇺🇸</span> 美国</td></tr>
+<tr class="r2"><td>🥈 第2</td><td><span style="font-size:1.2rem">🇵🇾</span> 巴拉圭</td></tr>
 </table></div>
-<div class="group-card"><h3>E组</h3><table><tr><th>#</th><th>球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>进</th><th>失</th><th>净</th><th>分</th></tr>
-<tr class="rank-1"><td>🥇</td><td><span style="font-size:1.2rem">🇩🇪</span> 德国</td><td>3</td><td>3</td><td>0</td><td>0</td><td>12</td><td>6</td><td>6</td><td><strong>9</strong></td></tr>
-<tr class="rank-2"><td>🥈</td><td><span style="font-size:1.2rem">🇪🇨</span> 厄瓜多尔</td><td>3</td><td>1</td><td>1</td><td>1</td><td>9</td><td>7</td><td>2</td><td><strong>4</strong></td></tr>
-<tr class=""><td>3</td><td><span style="font-size:1.2rem">🇨🇮</span> 科特迪瓦</td><td>3</td><td>1</td><td>1</td><td>1</td><td>7</td><td>7</td><td>0</td><td><strong>4</strong></td></tr>
-<tr class=""><td>4</td><td><span style="font-size:1.2rem">🇨🇼</span> 库拉索</td><td>3</td><td>0</td><td>0</td><td>3</td><td>4</td><td>12</td><td>-8</td><td><strong>0</strong></td></tr>
+<div class="group-card"><h3>E组</h3><table><tr><th>排名</th><th>球队</th></tr>
+<tr class="r1"><td>🥇 第1</td><td><span style="font-size:1.2rem">🇩🇪</span> 德国</td></tr>
+<tr class="r2"><td>🥈 第2</td><td><span style="font-size:1.2rem">🇪🇨</span> 厄瓜多尔</td></tr>
 </table></div>
-<div class="group-card"><h3>F组</h3><table><tr><th>#</th><th>球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>进</th><th>失</th><th>净</th><th>分</th></tr>
-<tr class="rank-1"><td>🥇</td><td><span style="font-size:1.2rem">🇸🇪</span> 瑞典</td><td>3</td><td>1</td><td>2</td><td>0</td><td>10</td><td>9</td><td>1</td><td><strong>5</strong></td></tr>
-<tr class="rank-2"><td>🥈</td><td><span style="font-size:1.2rem">🇹🇳</span> 突尼斯</td><td>3</td><td>1</td><td>2</td><td>0</td><td>10</td><td>9</td><td>1</td><td><strong>5</strong></td></tr>
-<tr class=""><td>3</td><td><span style="font-size:1.2rem">🇳🇱</span> 荷兰</td><td>3</td><td>1</td><td>0</td><td>2</td><td>10</td><td>11</td><td>-1</td><td><strong>3</strong></td></tr>
-<tr class=""><td>4</td><td><span style="font-size:1.2rem">🇯🇵</span> 日本</td><td>3</td><td>0</td><td>2</td><td>1</td><td>9</td><td>10</td><td>-1</td><td><strong>2</strong></td></tr>
+<div class="group-card"><h3>F组</h3><table><tr><th>排名</th><th>球队</th></tr>
+<tr class="r1"><td>🥇 第1</td><td><span style="font-size:1.2rem">🇳🇱</span> 荷兰</td></tr>
+<tr class="r2"><td>🥈 第2</td><td><span style="font-size:1.2rem">🇸🇪</span> 瑞典</td></tr>
 </table></div>
-<div class="group-card"><h3>G组</h3><table><tr><th>#</th><th>球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>进</th><th>失</th><th>净</th><th>分</th></tr>
-<tr class="rank-1"><td>🥇</td><td><span style="font-size:1.2rem">🇧🇪</span> 比利时</td><td>3</td><td>2</td><td>1</td><td>0</td><td>12</td><td>8</td><td>4</td><td><strong>7</strong></td></tr>
-<tr class="rank-2"><td>🥈</td><td><span style="font-size:1.2rem">🇮🇷</span> 伊朗</td><td>3</td><td>2</td><td>0</td><td>1</td><td>9</td><td>9</td><td>0</td><td><strong>6</strong></td></tr>
-<tr class=""><td>3</td><td><span style="font-size:1.2rem">🇳🇿</span> 新西兰</td><td>3</td><td>1</td><td>1</td><td>1</td><td>9</td><td>10</td><td>-1</td><td><strong>4</strong></td></tr>
-<tr class=""><td>4</td><td><span style="font-size:1.2rem">🇪🇬</span> 埃及</td><td>3</td><td>0</td><td>0</td><td>3</td><td>6</td><td>9</td><td>-3</td><td><strong>0</strong></td></tr>
+<div class="group-card"><h3>G组</h3><table><tr><th>排名</th><th>球队</th></tr>
+<tr class="r1"><td>🥇 第1</td><td><span style="font-size:1.2rem">🇧🇪</span> 比利时</td></tr>
+<tr class="r2"><td>🥈 第2</td><td><span style="font-size:1.2rem">🇮🇷</span> 伊朗</td></tr>
 </table></div>
-<div class="group-card"><h3>H组</h3><table><tr><th>#</th><th>球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>进</th><th>失</th><th>净</th><th>分</th></tr>
-<tr class="rank-1"><td>🥇</td><td><span style="font-size:1.2rem">🇺🇾</span> 乌拉圭</td><td>3</td><td>3</td><td>0</td><td>0</td><td>11</td><td>8</td><td>3</td><td><strong>9</strong></td></tr>
-<tr class="rank-2"><td>🥈</td><td><span style="font-size:1.2rem">🇪🇸</span> 西班牙</td><td>3</td><td>2</td><td>0</td><td>1</td><td>11</td><td>8</td><td>3</td><td><strong>6</strong></td></tr>
-<tr class=""><td>3</td><td><span style="font-size:1.2rem">🇸🇦</span> 沙特</td><td>3</td><td>0</td><td>1</td><td>2</td><td>8</td><td>10</td><td>-2</td><td><strong>1</strong></td></tr>
-<tr class=""><td>4</td><td><span style="font-size:1.2rem">🇨🇻</span> 佛得角</td><td>3</td><td>0</td><td>1</td><td>2</td><td>5</td><td>9</td><td>-4</td><td><strong>1</strong></td></tr>
+<div class="group-card"><h3>H组</h3><table><tr><th>排名</th><th>球队</th></tr>
+<tr class="r1"><td>🥇 第1</td><td><span style="font-size:1.2rem">🇪🇸</span> 西班牙</td></tr>
+<tr class="r2"><td>🥈 第2</td><td><span style="font-size:1.2rem">🇺🇾</span> 乌拉圭</td></tr>
 </table></div>
-<div class="group-card"><h3>I组</h3><table><tr><th>#</th><th>球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>进</th><th>失</th><th>净</th><th>分</th></tr>
-<tr class="rank-1"><td>🥇</td><td><span style="font-size:1.2rem">🇳🇴</span> 挪威</td><td>3</td><td>3</td><td>0</td><td>0</td><td>10</td><td>7</td><td>3</td><td><strong>9</strong></td></tr>
-<tr class="rank-2"><td>🥈</td><td><span style="font-size:1.2rem">🇫🇷</span> 法国</td><td>3</td><td>2</td><td>0</td><td>1</td><td>12</td><td>8</td><td>4</td><td><strong>6</strong></td></tr>
-<tr class=""><td>3</td><td><span style="font-size:1.2rem">🇸🇳</span> 塞内加尔</td><td>3</td><td>1</td><td>0</td><td>2</td><td>7</td><td>9</td><td>-2</td><td><strong>3</strong></td></tr>
-<tr class=""><td>4</td><td><span style="font-size:1.2rem">🇮🇶</span> 伊拉克</td><td>3</td><td>0</td><td>0</td><td>3</td><td>6</td><td>11</td><td>-5</td><td><strong>0</strong></td></tr>
+<div class="group-card"><h3>I组</h3><table><tr><th>排名</th><th>球队</th></tr>
+<tr class="r1"><td>🥇 第1</td><td><span style="font-size:1.2rem">🇫🇷</span> 法国</td></tr>
+<tr class="r2"><td>🥈 第2</td><td><span style="font-size:1.2rem">🇳🇴</span> 挪威</td></tr>
 </table></div>
-<div class="group-card"><h3>J组</h3><table><tr><th>#</th><th>球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>进</th><th>失</th><th>净</th><th>分</th></tr>
-<tr class="rank-1"><td>🥇</td><td><span style="font-size:1.2rem">🇦🇷</span> 阿根廷</td><td>3</td><td>3</td><td>0</td><td>0</td><td>12</td><td>7</td><td>5</td><td><strong>9</strong></td></tr>
-<tr class="rank-2"><td>🥈</td><td><span style="font-size:1.2rem">🇩🇿</span> 阿尔及利亚</td><td>3</td><td>2</td><td>0</td><td>1</td><td>10</td><td>8</td><td>2</td><td><strong>6</strong></td></tr>
-<tr class=""><td>3</td><td><span style="font-size:1.2rem">🇦🇹</span> 奥地利</td><td>3</td><td>1</td><td>0</td><td>2</td><td>7</td><td>10</td><td>-3</td><td><strong>3</strong></td></tr>
-<tr class=""><td>4</td><td><span style="font-size:1.2rem">🇯🇴</span> 约旦</td><td>3</td><td>0</td><td>0</td><td>3</td><td>6</td><td>10</td><td>-4</td><td><strong>0</strong></td></tr>
+<div class="group-card"><h3>J组</h3><table><tr><th>排名</th><th>球队</th></tr>
+<tr class="r1"><td>🥇 第1</td><td><span style="font-size:1.2rem">🇦🇷</span> 阿根廷</td></tr>
+<tr class="r2"><td>🥈 第2</td><td><span style="font-size:1.2rem">🇩🇿</span> 阿尔及利亚</td></tr>
 </table></div>
-<div class="group-card"><h3>K组</h3><table><tr><th>#</th><th>球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>进</th><th>失</th><th>净</th><th>分</th></tr>
-<tr class="rank-1"><td>🥇</td><td><span style="font-size:1.2rem">🇵🇹</span> 葡萄牙</td><td>3</td><td>3</td><td>0</td><td>0</td><td>12</td><td>4</td><td>8</td><td><strong>9</strong></td></tr>
-<tr class="rank-2"><td>🥈</td><td><span style="font-size:1.2rem">🇨🇴</span> 哥伦比亚</td><td>3</td><td>1</td><td>1</td><td>1</td><td>8</td><td>8</td><td>0</td><td><strong>4</strong></td></tr>
-<tr class=""><td>3</td><td><span style="font-size:1.2rem">🇨🇩</span> 刚果</td><td>3</td><td>1</td><td>0</td><td>2</td><td>6</td><td>10</td><td>-4</td><td><strong>3</strong></td></tr>
-<tr class=""><td>4</td><td><span style="font-size:1.2rem">🇺🇿</span> 乌兹别克</td><td>3</td><td>0</td><td>1</td><td>2</td><td>5</td><td>9</td><td>-4</td><td><strong>1</strong></td></tr>
+<div class="group-card"><h3>K组</h3><table><tr><th>排名</th><th>球队</th></tr>
+<tr class="r1"><td>🥇 第1</td><td><span style="font-size:1.2rem">🇵🇹</span> 葡萄牙</td></tr>
+<tr class="r2"><td>🥈 第2</td><td><span style="font-size:1.2rem">🇨🇴</span> 哥伦比亚</td></tr>
 </table></div>
-<div class="group-card"><h3>L组</h3><table><tr><th>#</th><th>球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>进</th><th>失</th><th>净</th><th>分</th></tr>
-<tr class="rank-1"><td>🥇</td><td><span style="font-size:1.2rem">🇬🇧</span> 英格兰</td><td>3</td><td>3</td><td>0</td><td>0</td><td>14</td><td>9</td><td>5</td><td><strong>9</strong></td></tr>
-<tr class="rank-2"><td>🥈</td><td><span style="font-size:1.2rem">🇭🇷</span> 克罗地亚</td><td>3</td><td>2</td><td>0</td><td>1</td><td>12</td><td>10</td><td>2</td><td><strong>6</strong></td></tr>
-<tr class=""><td>3</td><td><span style="font-size:1.2rem">🇵🇦</span> 巴拿马</td><td>3</td><td>1</td><td>0</td><td>2</td><td>8</td><td>10</td><td>-2</td><td><strong>3</strong></td></tr>
-<tr class=""><td>4</td><td><span style="font-size:1.2rem">🇬🇭</span> 加纳</td><td>3</td><td>0</td><td>0</td><td>3</td><td>7</td><td>12</td><td>-5</td><td><strong>0</strong></td></tr>
+<div class="group-card"><h3>L组</h3><table><tr><th>排名</th><th>球队</th></tr>
+<tr class="r1"><td>🥇 第1</td><td><span style="font-size:1.2rem">🇬🇧</span> 英格兰</td></tr>
+<tr class="r2"><td>🥈 第2</td><td><span style="font-size:1.2rem">🇭🇷</span> 克罗地亚</td></tr>
 </table></div>
 </div></div>
 <div class="section"><h2>🏆 淘汰赛晋级图</h2>
 <div style="color:#94a3b8;font-size:0.78rem;margin-bottom:8px;">共 32 场淘汰赛 · 绿色=胜者晋级</div>
-<div class="bracket-wrap"><div class="bracket-grid" style="grid-template-rows: repeat(32, minmax(28px, 1fr));"><div class="rl" style="grid-column:1;grid-row:1/2;">32强</div><div class="rl" style="grid-column:2;grid-row:1/2;">16强</div><div class="rl" style="grid-column:3;grid-row:1/2;">8强</div><div class="rl" style="grid-column:4;grid-row:1/2;">4强</div><div class="rl" style="grid-column:5;grid-row:1/2;">决赛</div><div class="bracket-match" style="grid-column:1;grid-row:1/3;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇰🇷</span></span><span style="text-align:right;"><span class="">韩国</span></span><span class="bs">3:3</span><span style="text-align:left;"><span class="">摩洛哥</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇲🇦</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:3/5;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇨🇭</span></span><span style="text-align:right;"><span class="bl">瑞士</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bw">科特迪瓦</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇨🇮</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:5/7;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇧🇷</span></span><span style="text-align:right;"><span class="bw">巴西</span></span><span class="bs">3:2</span><span style="text-align:left;"><span class="bl">新西兰</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇳🇿</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:7/9;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇵🇾</span></span><span style="text-align:right;"><span class="bl">巴拉圭</span></span><span class="bs">2:3</span><span style="text-align:left;"><span class="bw">美国</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇺🇸</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:9/11;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇩🇪</span></span><span style="text-align:right;"><span class="bw">德国</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bl">波黑</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇧🇦</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:11/13;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇸🇪</span></span><span style="text-align:right;"><span class="bw">瑞典</span></span><span class="bs">3:2</span><span style="text-align:left;"><span class="bl">捷克</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇨🇿</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:13/15;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇧🇪</span></span><span style="text-align:right;"><span class="bw">比利时</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bl">荷兰</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇳🇱</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:15/17;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇺🇾</span></span><span style="text-align:right;"><span class="bl">乌拉圭</span></span><span class="bs">4:5</span><span style="text-align:left;"><span class="bw">塞内加尔</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇸🇳</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:17/19;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇫🇷</span></span><span style="text-align:right;"><span class="bw">法国</span></span><span class="bs">5:3</span><span style="text-align:left;"><span class="bl">墨西哥</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇲🇽</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:19/21;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇦🇷</span></span><span style="text-align:right;"><span class="bw">阿根廷</span></span><span class="bs">4:2</span><span style="text-align:left;"><span class="bl">卡塔尔</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇶🇦</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:21/23;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇵🇹</span></span><span style="text-align:right;"><span class="bl">葡萄牙</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bw">苏格兰</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇬🇧</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:23/25;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇬🇧</span></span><span style="text-align:right;"><span class="bw">英格兰</span></span><span class="bs">3:2</span><span style="text-align:left;"><span class="bl">土耳其</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇹🇷</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:25/27;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇪🇨</span></span><span style="text-align:right;"><span class="bw">厄瓜多尔</span></span><span class="bs">4:2</span><span style="text-align:left;"><span class="bl">突尼斯</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇹🇳</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:27/29;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇮🇷</span></span><span style="text-align:right;"><span class="bl">伊朗</span></span><span class="bs">3:4</span><span style="text-align:left;"><span class="bw">西班牙</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇪🇸</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:29/31;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇳🇴</span></span><span style="text-align:right;"><span class="">挪威</span></span><span class="bs">3:3</span><span style="text-align:left;"><span class="">阿尔及利亚</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇩🇿</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:31/33;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇨🇴</span></span><span style="text-align:right;"><span class="bl">哥伦比亚</span></span><span class="bs">3:4</span><span style="text-align:left;"><span class="bw">克罗地亚</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇭🇷</span></span></div></div><div class="bracket-match" style="grid-column:2;grid-row:1/5;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇲🇦</span></span><span style="text-align:right;"><span class="bl">摩洛哥</span></span><span class="bs">3:4</span><span style="text-align:left;"><span class="bw">科特迪瓦</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇨🇮</span></span></div></div><div class="bracket-match" style="grid-column:2;grid-row:5/9;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇧🇷</span></span><span style="text-align:right;"><span class="bw">巴西</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bl">美国</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇺🇸</span></span></div></div><div class="bracket-match" style="grid-column:2;grid-row:9/13;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇩🇪</span></span><span style="text-align:right;"><span class="bl">德国</span></span><span class="bs">3:5</span><span style="text-align:left;"><span class="bw">瑞典</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇸🇪</span></span></div></div><div class="bracket-match" style="grid-column:2;grid-row:13/17;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇧🇪</span></span><span style="text-align:right;"><span class="bw">比利时</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bl">塞内加尔</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇸🇳</span></span></div></div><div class="bracket-match" style="grid-column:2;grid-row:17/21;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇫🇷</span></span><span style="text-align:right;"><span class="bl">法国</span></span><span class="bs">4:5</span><span style="text-align:left;"><span class="bw">阿根廷</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇦🇷</span></span></div></div><div class="bracket-match" style="grid-column:2;grid-row:21/25;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇬🇧</span></span><span style="text-align:right;"><span class="bw">苏格兰</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bl">英格兰</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇬🇧</span></span></div></div><div class="bracket-match" style="grid-column:2;grid-row:25/29;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇪🇨</span></span><span style="text-align:right;"><span class="bl">厄瓜多尔</span></span><span class="bs">3:4</span><span style="text-align:left;"><span class="bw">西班牙</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇪🇸</span></span></div></div><div class="bracket-match" style="grid-column:2;grid-row:29/33;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇩🇿</span></span><span style="text-align:right;"><span class="bw">阿尔及利亚</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bl">克罗地亚</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇭🇷</span></span></div></div><div class="bracket-match" style="grid-column:3;grid-row:1/9;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇨🇮</span></span><span style="text-align:right;"><span class="">科特迪瓦</span></span><span class="bs">3:3</span><span style="text-align:left;"><span class="">巴西</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇧🇷</span></span></div></div><div class="bracket-match" style="grid-column:3;grid-row:9/17;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇸🇪</span></span><span style="text-align:right;"><span class="bl">瑞典</span></span><span class="bs">2:4</span><span style="text-align:left;"><span class="bw">比利时</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇧🇪</span></span></div></div><div class="bracket-match" style="grid-column:3;grid-row:17/25;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇦🇷</span></span><span style="text-align:right;"><span class="bw">阿根廷</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bl">苏格兰</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇬🇧</span></span></div></div><div class="bracket-match" style="grid-column:3;grid-row:25/33;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇪🇸</span></span><span style="text-align:right;"><span class="bl">西班牙</span></span><span class="bs">3:4</span><span style="text-align:left;"><span class="bw">阿尔及利亚</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇩🇿</span></span></div></div><div class="bracket-match" style="grid-column:4;grid-row:1/17;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇧🇷</span></span><span style="text-align:right;"><span class="bw">巴西</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bl">比利时</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇧🇪</span></span></div></div><div class="bracket-match" style="grid-column:4;grid-row:17/33;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇦🇷</span></span><span style="text-align:right;"><span class="bw">阿根廷</span></span><span class="bs">4:2</span><span style="text-align:left;"><span class="bl">阿尔及利亚</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇩🇿</span></span></div></div><div class="bracket-match bf" style="grid-column:5;grid-row:1/33;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇧🇷</span></span><span style="text-align:right;"><span class="bl">巴西</span></span><span class="bs">3:4</span><span style="text-align:left;"><span class="bw">阿根廷</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇦🇷</span></span></div></div></div></div><div class="tp-section"><span class="tp-label">🥉 季军赛</span><span class="tp-match"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇧🇪</span></span><span style="text-align:right;"><span class="bw">比利时</span></span><span class="bs">5:3</span><span style="text-align:left;"><span class="bl">阿尔及利亚</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇩🇿</span></span></div></span></div>
+<div class="bracket-wrap"><div class="bracket-grid" style="grid-template-rows:repeat(32,minmax(28px,1fr));"><div class="rl" style="grid-column:1;grid-row:1/2;">32强</div><div class="bracket-match" style="grid-column:1;grid-row:1/3;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇲🇽</span></span><span style="text-align:right;"><span class="bw">墨西哥</span></span><span class="bs">4:2</span><span style="text-align:left;"><span class="bl">日本</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇯🇵</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:3/5;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇨🇭</span></span><span style="text-align:right;"><span class="bw">瑞士</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bl">塞内加尔</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇸🇳</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:5/7;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇧🇷</span></span><span style="text-align:right;"><span class="bw">巴西</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bl">奥地利</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇦🇹</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:7/9;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇺🇸</span></span><span style="text-align:right;"><span class="bw">美国</span></span><span class="bs">4:2</span><span style="text-align:left;"><span class="bl">澳洲</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇦🇺</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:9/11;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇩🇪</span></span><span style="text-align:right;"><span class="bw">德国</span></span><span class="bs">4:2</span><span style="text-align:left;"><span class="bl">埃及</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇪🇬</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:11/13;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇳🇱</span></span><span style="text-align:right;"><span class="bw">荷兰</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bl">波黑</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇧🇦</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:13/15;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇧🇪</span></span><span style="text-align:right;"><span class="bl">比利时</span></span><span class="bs">3:4</span><span style="text-align:left;"><span class="bw">加纳</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇬🇭</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:15/17;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇪🇸</span></span><span style="text-align:right;"><span class="bw">西班牙</span></span><span class="bs">4:2</span><span style="text-align:left;"><span class="bl">南非</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇿🇦</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:17/19;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇫🇷</span></span><span style="text-align:right;"><span class="bw">法国</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bl">韩国</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇰🇷</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:19/21;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇦🇷</span></span><span style="text-align:right;"><span class="bw">阿根廷</span></span><span class="bs">4:2</span><span style="text-align:left;"><span class="bl">加拿大</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇨🇦</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:21/23;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇵🇹</span></span><span style="text-align:right;"><span class="bw">葡萄牙</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bl">摩洛哥</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇲🇦</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:23/25;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇬🇧</span></span><span style="text-align:right;"><span class="bw">英格兰</span></span><span class="bs">4:2</span><span style="text-align:left;"><span class="bl">巴拉圭</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇵🇾</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:25/27;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇪🇨</span></span><span style="text-align:right;"><span class="bl">厄瓜多尔</span></span><span class="bs">3:4</span><span style="text-align:left;"><span class="bw">瑞典</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇸🇪</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:27/29;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇮🇷</span></span><span style="text-align:right;"><span class="bw">伊朗</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bl">乌拉圭</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇺🇾</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:29/31;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇳🇴</span></span><span style="text-align:right;"><span class="bw">挪威</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bl">阿尔及利亚</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇩🇿</span></span></div></div><div class="bracket-match" style="grid-column:1;grid-row:31/33;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇨🇴</span></span><span style="text-align:right;"><span class="bl">哥伦比亚</span></span><span class="bs">3:4</span><span style="text-align:left;"><span class="bw">克罗地亚</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇭🇷</span></span></div></div><div class="rl" style="grid-column:2;grid-row:1/2;">16强</div><div class="bracket-match" style="grid-column:2;grid-row:1/5;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇲🇽</span></span><span style="text-align:right;"><span class="bl">墨西哥</span></span><span class="bs">3:4</span><span style="text-align:left;"><span class="bw">瑞士</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇨🇭</span></span></div></div><div class="bracket-match" style="grid-column:2;grid-row:5/9;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇧🇷</span></span><span style="text-align:right;"><span class="bw">巴西</span></span><span class="bs">5:2</span><span style="text-align:left;"><span class="bl">美国</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇺🇸</span></span></div></div><div class="bracket-match" style="grid-column:2;grid-row:9/13;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇩🇪</span></span><span style="text-align:right;"><span class="bw">德国</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bl">荷兰</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇳🇱</span></span></div></div><div class="bracket-match" style="grid-column:2;grid-row:13/17;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇬🇭</span></span><span style="text-align:right;"><span class="bl">加纳</span></span><span class="bs">2:4</span><span style="text-align:left;"><span class="bw">西班牙</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇪🇸</span></span></div></div><div class="bracket-match" style="grid-column:2;grid-row:17/21;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇫🇷</span></span><span style="text-align:right;"><span class="bw">法国</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bl">阿根廷</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇦🇷</span></span></div></div><div class="bracket-match" style="grid-column:2;grid-row:21/25;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇵🇹</span></span><span style="text-align:right;"><span class="bl">葡萄牙</span></span><span class="bs">3:4</span><span style="text-align:left;"><span class="bw">英格兰</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇬🇧</span></span></div></div><div class="bracket-match" style="grid-column:2;grid-row:25/29;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇸🇪</span></span><span style="text-align:right;"><span class="bl">瑞典</span></span><span class="bs">2:3</span><span style="text-align:left;"><span class="bw">伊朗</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇮🇷</span></span></div></div><div class="bracket-match" style="grid-column:2;grid-row:29/33;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇳🇴</span></span><span style="text-align:right;"><span class="bl">挪威</span></span><span class="bs">3:4</span><span style="text-align:left;"><span class="bw">克罗地亚</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇭🇷</span></span></div></div><div class="rl" style="grid-column:3;grid-row:1/2;">8强</div><div class="bracket-match" style="grid-column:3;grid-row:1/9;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇨🇭</span></span><span style="text-align:right;"><span class="bw">瑞士</span></span><span class="bs">3:2</span><span style="text-align:left;"><span class="bl">巴西</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇧🇷</span></span></div></div><div class="bracket-match" style="grid-column:3;grid-row:9/17;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇩🇪</span></span><span style="text-align:right;"><span class="bl">德国</span></span><span class="bs">3:4</span><span style="text-align:left;"><span class="bw">西班牙</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇪🇸</span></span></div></div><div class="bracket-match" style="grid-column:3;grid-row:17/25;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇫🇷</span></span><span style="text-align:right;"><span class="bw">法国</span></span><span class="bs">5:3</span><span style="text-align:left;"><span class="bl">英格兰</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇬🇧</span></span></div></div><div class="bracket-match" style="grid-column:3;grid-row:25/33;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇮🇷</span></span><span style="text-align:right;"><span class="bl">伊朗</span></span><span class="bs">2:4</span><span style="text-align:left;"><span class="bw">克罗地亚</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇭🇷</span></span></div></div><div class="rl" style="grid-column:4;grid-row:1/2;">4强</div><div class="bracket-match" style="grid-column:4;grid-row:1/17;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇨🇭</span></span><span style="text-align:right;"><span class="bl">瑞士</span></span><span class="bs">3:5</span><span style="text-align:left;"><span class="bw">西班牙</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇪🇸</span></span></div></div><div class="bracket-match" style="grid-column:4;grid-row:17/33;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇫🇷</span></span><span style="text-align:right;"><span class="bw">法国</span></span><span class="bs">4:3</span><span style="text-align:left;"><span class="bl">克罗地亚</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇭🇷</span></span></div></div><div class="rl" style="grid-column:5;grid-row:1/2;">决赛</div><div class="bracket-match" style="grid-column:5;grid-row:1/33;"><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇪🇸</span></span><span style="text-align:right;"><span class="bl">西班牙</span></span><span class="bs">3:5</span><span style="text-align:left;"><span class="bw">法国</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇫🇷</span></span></div></div></div></div><div class="tp-section"><span class="tp-label">🥉 季军赛</span><div class="bc"><span style="text-align:right;"><span style="font-size:1.2rem">🇨🇭</span></span><span style="text-align:right;"><span class="bl">瑞士</span></span><span class="bs">2:4</span><span style="text-align:left;"><span class="bw">克罗地亚</span></span><span style="text-align:left;"><span style="font-size:1.2rem">🇭🇷</span></span></div></div>
 </div>
 
 <div class="section" style="text-align:center;border:2px solid #f59e0b;">
 <h2 style="border:none;justify-content:center;font-size:1.5rem;">🏆 预测冠军</h2>
-<div style="font-size:3rem;margin:10px 0;"><span style="font-size:1.2rem">🇦🇷</span></div>
-<div style="font-size:1.8rem;font-weight:700;color:#f59e0b;">阿根廷</div>
-<div style="color:#94a3b8;margin-top:8px;">亚军: 巴西</div>
-<div style="color:#64748b;font-size:0.82rem;margin-top:4px;">决赛 3:4</div>
+<div style="font-size:3rem;margin:10px 0;"><span style="font-size:1.2rem">🇫🇷</span></div>
+<div style="font-size:1.8rem;font-weight:700;color:#f59e0b;">法国</div>
+<div style="color:#94a3b8;margin-top:8px;">亚军: 西班牙</div>
 </div>
 <div class="footer">2026 FIFA World Cup · Generated on 2026-06-04</div></body></html>

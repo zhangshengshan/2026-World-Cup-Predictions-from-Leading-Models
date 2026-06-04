@@ -1,0 +1,153 @@
+{
+  "model_name": "GPT-4",
+  "model_version": "gpt-4-turbo",
+  "prediction_date": "2026-05-20",
+  "total_predictions": 14,
+  "predictions": [
+    {
+      "match_id": "GRP_A_1",
+      "team_a": "荷兰",
+      "team_b": "塞内加尔",
+      "predicted_winner": "team_a",
+      "predicted_score_a": 2,
+      "predicted_score_b": 0,
+      "confidence": 0.82,
+      "reasoning": "荷兰实力强劲，小组赛首战应该轻松获胜"
+    },
+    {
+      "match_id": "GRP_A_2",
+      "team_a": "厄瓜多尔",
+      "team_b": "卡塔尔",
+      "predicted_winner": "team_a",
+      "predicted_score_a": 2,
+      "predicted_score_b": 1,
+      "confidence": 0.65,
+      "reasoning": "厄瓜多尔略强，但卡塔尔会有所表现"
+    },
+    {
+      "match_id": "GRP_A_3",
+      "team_a": "荷兰",
+      "team_b": "卡塔尔",
+      "predicted_winner": "team_a",
+      "predicted_score_a": 3,
+      "predicted_score_b": 0,
+      "confidence": 0.88,
+      "reasoning": "荷兰对卡塔尔应该是压倒性优势"
+    },
+    {
+      "match_id": "GRP_A_4",
+      "team_a": "厄瓜多尔",
+      "team_b": "塞内加尔",
+      "predicted_winner": "team_a",
+      "predicted_score_a": 2,
+      "predicted_score_b": 1,
+      "confidence": 0.72,
+      "reasoning": "厄瓜多尔地理位置优势，主场作战能力强"
+    },
+    {
+      "match_id": "GRP_A_5",
+      "team_a": "塞内加尔",
+      "team_b": "荷兰",
+      "predicted_winner": "team_b",
+      "predicted_score_a": 0,
+      "predicted_score_b": 2,
+      "confidence": 0.79,
+      "reasoning": "荷兰已提前出线，但会认真对待"
+    },
+    {
+      "match_id": "GRP_A_6",
+      "team_a": "卡塔尔",
+      "team_b": "厄瓜多尔",
+      "predicted_winner": "team_b",
+      "predicted_score_a": 1,
+      "predicted_score_b": 2,
+      "confidence": 0.68,
+      "reasoning": "厄瓜多尔需要争夺出线名额"
+    },
+    {
+      "match_id": "GRP_B_1",
+      "team_a": "英格兰",
+      "team_b": "伊朗",
+      "predicted_winner": "team_a",
+      "predicted_score_a": 6,
+      "predicted_score_b": 2,
+      "confidence": 0.85,
+      "reasoning": "英格兰实力远超伊朗，应有大胜"
+    },
+    {
+      "match_id": "GRP_B_2",
+      "team_a": "美国",
+      "team_b": "威尔士",
+      "predicted_winner": "draw",
+      "predicted_score_a": 1,
+      "predicted_score_b": 1,
+      "confidence": 0.71,
+      "reasoning": "势均力敌，平手是最可能的结果"
+    },
+    {
+      "match_id": "GRP_B_3",
+      "team_a": "英格兰",
+      "team_b": "美国",
+      "predicted_winner": "team_a",
+      "predicted_score_a": 2,
+      "predicted_score_b": 0,
+      "confidence": 0.63,
+      "reasoning": "英格兰略占上风，但美国会有抵抗"
+    },
+    {
+      "match_id": "GRP_B_4",
+      "team_a": "威尔士",
+      "team_b": "伊朗",
+      "predicted_winner": "team_a",
+      "predicted_score_a": 2,
+      "predicted_score_b": 0,
+      "confidence": 0.75,
+      "reasoning": "威尔士应该取胜伊朗"
+    },
+    {
+      "match_id": "GRP_B_5",
+      "team_a": "伊朗",
+      "team_b": "美国",
+      "predicted_winner": "team_b",
+      "predicted_score_a": 0,
+      "predicted_score_b": 1,
+      "confidence": 0.73,
+      "reasoning": "美国需要争夺出线机会"
+    },
+    {
+      "match_id": "GRP_B_6",
+      "team_a": "威尔士",
+      "team_b": "英格兰",
+      "predicted_winner": "team_b",
+      "predicted_score_a": 0,
+      "predicted_score_b": 3,
+      "confidence": 0.81,
+      "reasoning": "英格兰德比中英格兰明显更强"
+    },
+    {
+      "match_id": "KO_1",
+      "team_a": "荷兰",
+      "team_b": "美国",
+      "predicted_winner": "team_a",
+      "predicted_score_a": 2,
+      "predicted_score_b": 1,
+      "confidence": 0.68,
+      "reasoning": "淘汰赛中荷兰经验丰富，应该胜出"
+    },
+    {
+      "match_id": "KO_2",
+      "team_a": "阿根廷",
+      "team_b": "澳大利亚",
+      "predicted_winner": "team_a",
+      "predicted_score_a": 2,
+      "predicted_score_b": 1,
+      "confidence": 0.74,
+      "reasoning": "阿根廷实力更强，但澳大利亚会给予压力"
+    }
+  ],
+  "metadata": {
+    "created_date": "2026-05-20",
+    "description": "GPT-4对2026世界杯样例比赛的预测",
+    "notes": "confidence字段表示模型对该预测的置信度（0-1）"
+  }
+}

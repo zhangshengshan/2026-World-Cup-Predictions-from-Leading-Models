@@ -22,23 +22,23 @@ def calc_standings(predictions, group_prefix):
         else: teams[ta]['d'] += 1; teams[tb]['d'] += 1; teams[ta]['pts'] += 1; teams[tb]['pts'] += 1
     return sorted(teams.items(), key=lambda x: (-x[1]['pts'], -(x[1]['gf'] - x[1]['ga']), -x[1]['gf']))
 
-def get_team_code(team_name):
-    code_map = {"墨西哥":"MEX","南非":"RSA","韩国":"KOR","捷克":"CZE","加拿大":"CAN","波黑":"BIH",
-        "卡塔尔":"QAT","瑞士":"SUI","巴西":"BRA","摩洛哥":"MAR","海地":"HAI","苏格兰":"SCO",
-        "美国":"USA","巴拉圭":"PAR","澳大利亚":"AUS","土耳其":"TUR","德国":"GER","库拉索":"CUW",
-        "科特迪瓦":"CIV","厄瓜多尔":"ECU","荷兰":"NED","日本":"JPN","瑞典":"SWE","突尼斯":"TUN",
-        "比利时":"BEL","埃及":"EGY","伊朗":"IRN","新西兰":"NZL","西班牙":"ESP","佛得角":"CPV",
-        "沙特阿拉伯":"KSA","乌拉圭":"URU","法国":"FRA","塞内加尔":"SEN","伊拉克":"IRQ","挪威":"NOR",
-        "阿根廷":"ARG","阿尔及利亚":"ALG","奥地利":"AUT","约旦":"JOR","葡萄牙":"POR",
-        "刚果民主共和国":"COD","乌兹别克斯坦":"UZB","哥伦比亚":"COL","英格兰":"ENG","克罗地亚":"CRO",
-        "加纳":"GHA","巴拿马":"PAN"}
-    return code_map.get(team_name, team_name[:3].upper())
+def get_iso2(team_name):
+    iso = {"墨西哥":"MX","南非":"ZA","韩国":"KR","捷克":"CZ","加拿大":"CA","波黑":"BA",
+        "卡塔尔":"QA","瑞士":"CH","巴西":"BR","摩洛哥":"MA","海地":"HT","苏格兰":"GB",
+        "美国":"US","巴拉圭":"PY","澳大利亚":"AU","土耳其":"TR","德国":"DE","库拉索":"CW",
+        "科特迪瓦":"CI","厄瓜多尔":"EC","荷兰":"NL","日本":"JP","瑞典":"SE","突尼斯":"TN",
+        "比利时":"BE","埃及":"EG","伊朗":"IR","新西兰":"NZ","西班牙":"ES","佛得角":"CV",
+        "沙特阿拉伯":"SA","乌拉圭":"UY","法国":"FR","塞内加尔":"SN","伊拉克":"IQ","挪威":"NO",
+        "阿根廷":"AR","阿尔及利亚":"DZ","奥地利":"AT","约旦":"JO","葡萄牙":"PT",
+        "刚果民主共和国":"CD","乌兹别克斯坦":"UZ","哥伦比亚":"CO","英格兰":"GB","克罗地亚":"HR",
+        "加纳":"GH","巴拿马":"PA"}
+    return iso.get(team_name, "UN").lower()
 
 def code2flag(c):
     return ''.join(chr(0x1F1E6 + ord(l) - ord('a')) for l in c[:2])
 
 def flag_span(name):
-    return f'<span style="font-size:1.2rem">{code2flag(get_team_code(name).lower())}</span>'
+    return f'<span style="font-size:1.2rem">{code2flag(get_iso2(name))}</span>'
 
 def render_bracket(ko_by_round, ko_order):
     """Build bracket tree HTML using CSS Grid."""
@@ -59,15 +59,21 @@ def render_bracket(ko_by_round, ko_order):
     tp_ids  = [i for i in sorted_ids if int(i.split('_')[1]) == 32]
 
     def card(m):
-        if not m: return '<div class="bc"></div>'
+        if not m: return '<div class="bc"><span></span><span></span><span></span></div>'
         ta, tb = m['team_a'], m['team_b']
         sa, sb = m['predicted_score_a'], m['predicted_score_b']
         w = m.get('predicted_winner', '')
         t1_w = w == 'team_a'; t2_w = w == 'team_b'
-        if t1_w: sc = f'<span class="bw">{flag_span(ta)} {ta}</span> <span class="bs">{sa}:{sb}</span> <span class="bl">{tb} {flag_span(tb)}</span>'
-        elif t2_w: sc = f'<span class="bl">{flag_span(ta)} {ta}</span> <span class="bs">{sa}:{sb}</span> <span class="bw">{tb} {flag_span(tb)}</span>'
-        else: sc = f'<span>{flag_span(ta)} {ta}</span> <span class="bs">{sa}:{sb}</span> <span>{tb} {flag_span(tb)}</span>'
-        return f'<div class="bc">{sc}</div>'
+        if t1_w:
+            l = f'<span class="bw">{flag_span(ta)} {ta}</span>'
+            r = f'<span class="bl">{tb} {flag_span(tb)}</span>'
+        elif t2_w:
+            l = f'<span class="bl">{flag_span(ta)} {ta}</span>'
+            r = f'<span class="bw">{tb} {flag_span(tb)}</span>'
+        else:
+            l = f'<span>{flag_span(ta)} {ta}</span>'
+            r = f'<span>{tb} {flag_span(tb)}</span>'
+        return f'<div class="bc">{l}<span class="bs">{sa}:{sb}</span>{r}</div>'
 
     def row_range(idx, total_in_round):
         """Return (start, end) 1-indexed grid rows for match idx in a round with total_in_round matches."""
@@ -157,10 +163,10 @@ th {{ text-align:left; padding:4px 6px; color:#94a3b8; font-weight:500; border-b
 td {{ padding:4px 6px; border-bottom:1px solid #1e293b; }}
 .rank-1 {{ color:#22c55e; font-weight:700; }}
 .rank-2 {{ color:#38bdf8; font-weight:700; }}
-.match-row {{ display:flex; align-items:center; justify-content:space-between; padding:7px 0; gap:6px; }}
+.match-row {{ display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:7px 0; gap:4px; }}
 .match-sep {{ border-bottom:1px solid #1e293b; }}
-.team-name {{ font-weight:500; font-size:0.88rem; }}
-.score-num {{ font-weight:700; color:#f59e0b; font-size:1.05rem; min-width:36px; text-align:center; }}
+.team-name {{ font-weight:500; font-size:0.88rem; white-space:nowrap; }}
+.score-num {{ font-weight:700; color:#f59e0b; font-size:1.05rem; min-width:40px; text-align:center; }}
 .win-badge {{ display:inline-block; background:#22c55e; color:#052e16; font-size:0.62rem; padding:1px 5px; border-radius:4px; font-weight:600; }}
 .draw-badge {{ display:inline-block; background:#64748b; color:#0f172a; font-size:0.62rem; padding:1px 5px; border-radius:4px; font-weight:600; }}
 .reason {{ font-size:0.7rem; color:#64748b; font-style:italic; }}
@@ -176,10 +182,12 @@ td {{ padding:4px 6px; border-bottom:1px solid #1e293b; }}
 .bracket-grid {{ display:grid; gap:0; min-width:800px; align-items:stretch; }}
 .rl {{ font-size:0.72rem; color:#94a3b8; font-weight:600; text-align:center; padding:4px; border-bottom:1px solid #334155; display:flex; align-items:center; justify-content:center; text-transform:uppercase; letter-spacing:1px; }}
 .bracket-match {{ display:flex; align-items:center; padding:2px; }}
-.bc {{ background:#0f172a; border:1px solid #334155; border-radius:6px; padding:4px 8px; width:100%; display:flex; align-items:center; justify-content:space-between; gap:4px; font-size:0.72rem; line-height:1.3; }}
+.bc {{ background:#0f172a; border:1px solid #334155; border-radius:6px; padding:4px 8px; width:100%; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:4px; font-size:0.72rem; line-height:1.3; }}
+.bc > span:first-child {{ text-align:left; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }}
+.bc > span:last-child {{ text-align:right; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }}
 .bc .bw {{ color:#22c55e; font-weight:600; }}
 .bc .bl {{ color:#64748b; }}
-.bc .bs {{ color:#f59e0b; font-weight:700; min-width:20px; text-align:center; }}
+.bc .bs {{ color:#f59e0b; font-weight:700; text-align:center; }}
 .bf .bc {{ border-color:#f59e0b; border-width:2px; }}
 .tp-section {{ text-align:center; margin-top:8px; padding:6px; background:#0f172a; border-radius:6px; border:1px solid #334155; }}
 .tp-label {{ color:#94a3b8; font-size:0.75rem; margin-right:8px; }}
@@ -224,12 +232,9 @@ td {{ padding:4px 6px; border-bottom:1px solid #1e293b; }}
             f1 = flag_span(ta); f2 = flag_span(tb)
             html.append(f'''
 <div class="match-row match-sep">
-<div style="flex:1;text-align:right;">{f1} <span class="team-name">{t1d}</span></div>
+<div style="text-align:right;overflow:hidden;text-overflow:ellipsis;">{f1} <span class="team-name">{t1d}</span></div>
 <span class="score-num">{sa}:{sb}</span>
-<div style="flex:1;text-align:left;"><span class="team-name">{t2d}</span> {f2} {badge}</div>
-</div>
-<div style="display:flex;justify-content:space-between;font-size:0.68rem;color:#64748b;padding:0 0 4px 0;">
-<span>置信度: {c:.0%}</span><span class="reason">{r}</span>
+<div style="text-align:left;overflow:hidden;text-overflow:ellipsis;"><span class="team-name">{t2d}</span> {f2} {badge}</div>
 </div>''')
         html.append('</div>')
     html.append('</div></div>')

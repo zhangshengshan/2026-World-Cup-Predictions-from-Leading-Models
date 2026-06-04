@@ -14,6 +14,14 @@ TEAM_STRENGTH = {
 }
 
 SHORT_NAMES = {"澳大利亚":"澳洲","沙特阿拉伯":"沙特","刚果民主共和国":"刚果","乌兹别克斯坦":"乌兹别克"}
+ALL_TEAMS = {
+    "A":["墨西哥","南非","韩国","捷克"],"B":["加拿大","波黑","卡塔尔","瑞士"],
+    "C":["巴西","摩洛哥","海地","苏格兰"],"D":["美国","巴拉圭","澳洲","土耳其"],
+    "E":["德国","库拉索","科特迪瓦","厄瓜多尔"],"F":["荷兰","日本","瑞典","突尼斯"],
+    "G":["比利时","埃及","伊朗","新西兰"],"H":["西班牙","佛得角","沙特","乌拉圭"],
+    "I":["法国","塞内加尔","伊拉克","挪威"],"J":["阿根廷","阿尔及利亚","奥地利","约旦"],
+    "K":["葡萄牙","刚果","乌兹别克","哥伦比亚"],"L":["英格兰","克罗地亚","加纳","巴拿马"],
+}
 
 def load_json(rel):
     with open(os.path.join(BASE_DIR, rel), 'r', encoding='utf-8') as f:
@@ -40,145 +48,180 @@ def code2flag(c):
 def flag_span(name):
     return f'<span style="font-size:1.2rem">{code2flag(get_iso2(name))}</span>'
 
-def predict_ko_score(ta, tb):
-    """Generate a plausible KO score based on team strength."""
-    rA = TEAM_STRENGTH.get(ta, 50)
-    rB = TEAM_STRENGTH.get(tb, 50)
-    diff = rA - rB
-    win_p = 1 / (1 + math.exp(-diff / 15))
-    r = random.random()
-    if r < win_p:
-        sa = max(1, round(rA / 22 + random.gauss(0, 0.4)))
-        sb = max(0, round(rB / 28 + random.gauss(0, 0.3)))
-        if sa <= sb: sa = sb + 1
-        return ta, sa, sb
-    else:
-        sb = max(1, round(rB / 22 + random.gauss(0, 0.4)))
-        sa = max(0, round(rA / 28 + random.gauss(0, 0.3)))
-        if sb <= sa: sb = sa + 1
-        return tb, sa, sb
+def group_label_to_team(label, group_preds):
+    """Convert 'A1' → actual team name from group predictions."""
+    if len(label) < 2: return label
+    g = label[0].upper(); pos = label[1:]
+    if g not in group_preds: return label
+    if pos == "1": return group_preds[g]["1st"]
+    if pos == "2": return group_preds[g]["2nd"]
+    return label
 
-def bracket_from_group_preds(group_preds, seed=1):
-    """Given {group: {1st, 2nd}}, auto-fill KO bracket and return ko_by_round."""
+def build_ko_from_predictions(group_preds, ko_preds, seed=42):
+    """Build ko_by_round from model's knockout predictions."""
     random.seed(seed)
-    groups_1st = {g: v["1st"] for g, v in group_preds.items()}
-    groups_2nd = {g: v["2nd"] for g, v in group_preds.items()}
-    all_1st = [groups_1st[g] for g in sorted(group_preds)]
-    all_2nd = [groups_2nd[g] for g in sorted(group_preds)]
-
-    # Determine 8 best third-placed teams by strength
-    # Third-place teams (the team NOT in 1st/2nd for each group)
-    all_teams = {
-        "A":["墨西哥","南非","韩国","捷克"],"B":["加拿大","波黑","卡塔尔","瑞士"],
-        "C":["巴西","摩洛哥","海地","苏格兰"],"D":["美国","巴拉圭","澳洲","土耳其"],
-        "E":["德国","库拉索","科特迪瓦","厄瓜多尔"],"F":["荷兰","日本","瑞典","突尼斯"],
-        "G":["比利时","埃及","伊朗","新西兰"],"H":["西班牙","佛得角","沙特","乌拉圭"],
-        "I":["法国","塞内加尔","伊拉克","挪威"],"J":["阿根廷","阿尔及利亚","奥地利","约旦"],
-        "K":["葡萄牙","刚果","乌兹别克","哥伦比亚"],"L":["英格兰","克罗地亚","加纳","巴拿马"],
-    }
-    thirds = []
-    for g in sorted(group_preds):
-        adv = {group_preds[g]["1st"], group_preds[g]["2nd"]}
-        for t in all_teams.get(g, []):
-            if t not in adv:
-                thirds.append((g, t))
-                break
-    thirds.sort(key=lambda x: -TEAM_STRENGTH.get(x[1], 50))
-    best_thirds = [t[1] for t in thirds[:8]]
-    best_third_groups = [t[0] for t in thirds[:8]]
-
-    # Build R32 pairings (1st vs 3rd / 1st vs 2nd / 2nd vs 2nd)
-    def ko_pred(t1, t2, mid):
-        if not t1 or not t2: return None
-        winner, sa, sb = predict_ko_score(t1, t2)
-        return {"match_id": mid, "team_a": t1, "team_b": t2,
-                "predicted_winner": "team_a" if winner == t1 else "team_b",
-                "predicted_score_a": sa, "predicted_score_b": sb,
-                "round": ""}
-
     ko_by_round = {"32强":[],"16强":[],"四分之一决赛":[],"半决赛":[],"季军赛":[],"决赛":[]}
     ko_results = {}
     ko_idx = 1
 
-    # Pair 1st with 3rd for 8 matches
-    used_1st = set(); used_3rd = set()
-    for i in range(min(8, len(best_thirds), len(all_1st))):
-        t1 = groups_1st[sorted(group_preds.keys())[i]]
-        t3 = best_thirds[i]
-        mid = f"KO_{ko_idx}"
-        p = ko_pred(t1, t3, mid)
-        if p:
-            p["round"] = "32强"
-            ko_by_round["32强"].append(p)
-            w = t1 if p["predicted_winner"] == "team_a" else t3
-            ko_results[mid] = w
-            used_1st.add(t1); used_3rd.add(t3)
-            ko_idx += 1
+    def make_match(t1, t2, rnd, mid=None):
+        nonlocal ko_idx
+        if mid is None: mid = f"KO_{ko_idx}"
+        if t1 not in TEAM_STRENGTH or t2 not in TEAM_STRENGTH:
+            return None
+        rA, rB = TEAM_STRENGTH[t1], TEAM_STRENGTH[t2]
+        diff = rA - rB
+        win_p = 1 / (1 + math.exp(-diff / 15))
+        r = random.random()
+        if r < win_p:
+            sa = max(1, round(rA / 22 + random.gauss(0, 0.4)))
+            sb = max(0, round(rB / 28 + random.gauss(0, 0.3)))
+            if sa <= sb: sa = sb + 1
+            w = t1
+        else:
+            sb = max(1, round(rB / 22 + random.gauss(0, 0.4)))
+            sa = max(0, round(rA / 28 + random.gauss(0, 0.3)))
+            if sb <= sa: sb = sa + 1
+            w = t2
+        return {"match_id": mid, "team_a": t1, "team_b": t2,
+                "predicted_winner": "team_a" if w == t1 else "team_b",
+                "predicted_score_a": sa, "predicted_score_b": sb, "round": rnd}
 
-    # Remaining 1st vs runners-up
-    remaining_1st = [t for t in all_1st if t not in used_1st]
-    unused_2nd = [t for t in all_2nd]
-    for i, t1 in enumerate(remaining_1st):
-        if i < len(unused_2nd):
-            t2 = unused_2nd[i]
+    # Determine third-placed teams from group predictions
+    thirds = []
+    for g in sorted(group_preds):
+        adv = {group_preds[g]["1st"], group_preds[g]["2nd"]}
+        for t in ALL_TEAMS.get(g, []):
+            if t not in adv:
+                thirds.append(t)
+                break
+    # Sort third-place teams by strength, take top 8
+    thirds.sort(key=lambda t: -TEAM_STRENGTH.get(t, 50))
+    best_8 = thirds[:8]
+
+    r32_pred = ko_preds.get("round_of_32", [])
+    if r32_pred:
+        # R32: 12 predicted by model
+        for m in r32_pred:
             mid = f"KO_{ko_idx}"
-            p = ko_pred(t1, t2, mid)
+            winner = group_label_to_team(m.get("winner",""), group_preds)
+            parts = m.get("match","").split(" vs ")
+            if len(parts) == 2:
+                t1 = group_label_to_team(parts[0].strip(), group_preds)
+                t2 = group_label_to_team(parts[1].strip(), group_preds)
+            else:
+                continue
+            p = make_match(t1, t2, "32强", mid)
+            if p and winner and winner in TEAM_STRENGTH:
+                if winner == t1: p["predicted_winner"] = "team_a"
+                elif winner == t2: p["predicted_winner"] = "team_b"
             if p:
-                p["round"] = "32强"
+                ko_by_round["32强"].append(p)
+                w = t1 if p["predicted_winner"] == "team_a" else t2
+                ko_results[mid] = w
+                ko_idx += 1
+    else:
+        # No knockout predictions: auto-generate all R32 using standard bracket
+        # 12 matches: group winners vs group runners-up/3rd
+        g_list = sorted(group_preds.keys())
+        # Pair 6 group winners with 6 runners-up, 6 group winners with 6 best 3rds
+        for i in range(6):
+            w_g = g_list[i]
+            r_g = g_list[(i + 6) % 12]
+            t1 = group_preds[w_g]["1st"]
+            t2 = group_preds[r_g]["2nd"]
+            mid = f"KO_{ko_idx}"
+            p = make_match(t1, t2, "32强", mid)
+            if p:
+                ko_by_round["32强"].append(p)
+                w = t1 if p["predicted_winner"] == "team_a" else t2
+                ko_results[mid] = w
+                ko_idx += 1
+        for i in range(6):
+            w_g = g_list[i + 6]
+            t1 = group_preds[w_g]["1st"]
+            t2 = best_8[i] if i < len(best_8) else None
+            if not t2: continue
+            mid = f"KO_{ko_idx}"
+            p = make_match(t1, t2, "32强", mid)
+            if p:
                 ko_by_round["32强"].append(p)
                 w = t1 if p["predicted_winner"] == "team_a" else t2
                 ko_results[mid] = w
                 ko_idx += 1
 
-    # Remaining 2nd vs 2nd
-    used_2nd = set(unused_2nd[:len(remaining_1st)])
-    leftover_2nd = [t for t in all_2nd if t not in used_2nd]
-    for i in range(0, len(leftover_2nd), 2):
-        if i + 1 < len(leftover_2nd):
-            mid = f"KO_{ko_idx}"
-            p = ko_pred(leftover_2nd[i], leftover_2nd[i+1], mid)
-            if p:
-                p["round"] = "32强"
-                ko_by_round["32强"].append(p)
-                w = leftover_2nd[i] if p["predicted_winner"] == "team_a" else leftover_2nd[i+1]
-                ko_results[mid] = w
-                ko_idx += 1
+    # 4 more R32 matches between 8 best third-placed teams
+    for i in range(0, min(8, len(best_8)), 2):
+        if i + 1 >= len(best_8): break
+        t1, t2 = best_8[i], best_8[i+1]
+        mid = f"KO_{ko_idx}"
+        p = make_match(t1, t2, "32强", mid)
+        if p:
+            ko_by_round["32强"].append(p)
+            w = t1 if p["predicted_winner"] == "team_a" else t2
+            ko_results[mid] = w
+            ko_idx += 1
 
-    # Sim subsequent rounds
-    def sim_round(in_matches, round_name):
+    # Subsequent rounds: use model's predictions
+    SOURCE_ROUND = {"16强":"32强","四分之一决赛":"16强","半决赛":"四分之一决赛"}
+
+    def sim_round(kp_key, rnd_name, count):
         nonlocal ko_idx
-        for i in range(0, len(in_matches), 2):
-            if i + 1 >= len(in_matches): break
-            w1 = ko_results.get(in_matches[i]["match_id"])
-            w2 = ko_results.get(in_matches[i+1]["match_id"])
+        preds = ko_preds.get(kp_key, [])
+        src_name = SOURCE_ROUND[rnd_name]
+        src_matches = ko_by_round[src_name]
+        for i in range(count):
+            idx = i * 2
+            if idx + 1 >= len(src_matches):
+                break
+            w1 = ko_results.get(src_matches[idx]["match_id"])
+            w2 = ko_results.get(src_matches[idx+1]["match_id"])
             if not w1 or not w2: continue
+            pred_winner = preds[i].get("winner", "") if i < len(preds) else ""
             mid = f"KO_{ko_idx}"
-            p = ko_pred(w1, w2, mid)
+            p = make_match(w1, w2, rnd_name, mid)
+            if p and pred_winner and pred_winner in [w1, w2]:
+                if pred_winner == w1: p["predicted_winner"] = "team_a"
+                else: p["predicted_winner"] = "team_b"
             if p:
-                p["round"] = round_name
-                ko_by_round[round_name].append(p)
+                ko_by_round[rnd_name].append(p)
                 w = w1 if p["predicted_winner"] == "team_a" else w2
                 ko_results[mid] = w
                 ko_idx += 1
 
-    sim_round(ko_by_round["32强"], "16强")
-    sim_round(ko_by_round["16强"], "四分之一决赛")
-    sim_round(ko_by_round["四分之一决赛"], "半决赛")
+    sim_round("round_of_16", "16强", 8)
+    sim_round("quarterfinals", "四分之一决赛", 4)
+    sim_round("semifinals", "半决赛", 2)
 
     # Final
-    if len(ko_by_round["半决赛"]) >= 2:
-        w1 = ko_results.get(ko_by_round["半决赛"][0]["match_id"])
-        w2 = ko_results.get(ko_by_round["半决赛"][1]["match_id"])
-        mid = f"KO_{ko_idx}"
-        p = ko_pred(w1, w2, mid)
-        if p: p["round"] = "决赛"; ko_by_round["决赛"].append(p); ko_idx += 1
+    sf_matches = ko_by_round["半决赛"]
+    if len(sf_matches) >= 2:
+        w1 = ko_results.get(sf_matches[0]["match_id"])
+        w2 = ko_results.get(sf_matches[1]["match_id"])
+        if w1 and w2:
+            f_pred = ko_preds.get("final", {})
+            f_winner = f_pred.get("winner", "") if isinstance(f_pred, dict) else ""
+            mid = f"KO_{ko_idx}"
+            p = make_match(w1, w2, "决赛", mid)
+            if p and f_winner and f_winner in [w1, w2]:
+                if f_winner == w1: p["predicted_winner"] = "team_a"
+                else: p["predicted_winner"] = "team_b"
+            if p:
+                ko_by_round["决赛"].append(p)
+                ko_idx += 1
 
-        # 3rd place
-        l1 = ko_by_round["半决赛"][0]["team_b"] if ko_results.get(ko_by_round["半决赛"][0]["match_id"]) == ko_by_round["半决赛"][0]["team_a"] else ko_by_round["半决赛"][0]["team_a"]
-        l2 = ko_by_round["半决赛"][1]["team_b"] if ko_results.get(ko_by_round["半决赛"][1]["match_id"]) == ko_by_round["半决赛"][1]["team_a"] else ko_by_round["半决赛"][1]["team_a"]
-        mid3 = f"KO_{ko_idx}"
-        p3 = ko_pred(l1, l2, mid3)
-        if p3: p3["round"] = "季军赛"; ko_by_round["季军赛"].append(p3)
+            # 3rd place
+            l1 = sf_matches[0]["team_b"] if ko_results.get(sf_matches[0]["match_id"]) == sf_matches[0]["team_a"] else sf_matches[0]["team_a"]
+            l2 = sf_matches[1]["team_b"] if ko_results.get(sf_matches[1]["match_id"]) == sf_matches[1]["team_a"] else sf_matches[1]["team_a"]
+            tp_pred = ko_preds.get("third_place", {})
+            tp_w = tp_pred.get("winner", "") if isinstance(tp_pred, dict) else ""
+            mid3 = f"KO_{ko_idx}"
+            p3 = make_match(l1, l2, "季军赛", mid3)
+            if p3 and tp_w and tp_w in [l1, l2]:
+                if tp_w == l1: p3["predicted_winner"] = "team_a"
+                else: p3["predicted_winner"] = "team_b"
+            if p3:
+                ko_by_round["季军赛"].append(p3)
 
     return ko_by_round
 
@@ -203,9 +246,9 @@ def render_bracket(ko_by_round):
         sa, sb = m['predicted_score_a'], m['predicted_score_b']
         w = m.get('predicted_winner','')
         fl, fr = flag_span(ta), flag_span(tb)
-        l_c = 'bw' if w == 'team_a' else ('bl' if w == 'team_b' else '')
-        r_c = 'bw' if w == 'team_b' else ('bl' if w == 'team_a' else '')
-        return f'<div class="bc"><span style="text-align:right;">{fl}</span><span style="text-align:right;"><span class="{l_c}">{ta}</span></span><span class="bs">{sa}:{sb}</span><span style="text-align:left;"><span class="{r_c}">{tb}</span></span><span style="text-align:left;">{fr}</span></div>'
+        lc = 'bw' if w == 'team_a' else ('bl' if w == 'team_b' else '')
+        rc = 'bw' if w == 'team_b' else ('bl' if w == 'team_a' else '')
+        return f'<div class="bc"><span style="text-align:right;">{fl}</span><span style="text-align:right;"><span class="{lc}">{ta}</span></span><span class="bs">{sa}:{sb}</span><span style="text-align:left;"><span class="{rc}">{tb}</span></span><span style="text-align:left;">{fr}</span></div>'
 
     def rr(idx, total):
         span = 32 // max(total, 1); s = idx * span + 1
@@ -250,12 +293,7 @@ th {{ text-align:left; padding:5px 6px; color:#94a3b8; font-weight:500; border-b
 td {{ padding:5px 6px; border-bottom:1px solid #1e293b; }}
 .r1 {{ color:#22c55e; font-weight:700; }}
 .r2 {{ color:#38bdf8; font-weight:700; }}
-.adv-grid {{ display:flex; flex-wrap:wrap; gap:8px; }}
-.adv-item {{ background:#0f172a; padding:5px 10px; border-radius:5px; font-size:0.78rem; border:1px solid #334155; }}
-.adv-label {{ color:#94a3b8; }}
-.adv-team {{ color:#f59e0b; font-weight:600; }}
 .footer {{ text-align:center; color:#475569; font-size:0.78rem; margin-top:24px; padding:12px; }}
-
 .bracket-wrap {{ overflow-x:auto; padding:10px 0; }}
 .bracket-grid {{ display:grid; gap:0; min-width:750px; align-items:stretch; }}
 .rl {{ font-size:0.72rem; color:#94a3b8; font-weight:600; text-align:center; padding:4px; border-bottom:1px solid #334155; display:flex; align-items:center; justify-content:center; letter-spacing:1px; }}
@@ -277,7 +315,6 @@ td {{ padding:5px 6px; border-bottom:1px solid #1e293b; }}
 <p class="subtitle">{model_name}</p>
 ''')
 
-    # Group table
     html.append('<div class="section"><h2>📋 小组出线预测</h2><div class="group-grid">')
     for g in sorted(group_preds.keys()):
         p = group_preds[g]
@@ -287,7 +324,6 @@ td {{ padding:5px 6px; border-bottom:1px solid #1e293b; }}
         html.append('</table></div>')
     html.append('</div></div>')
 
-    # Knockout
     if ko_by_round and any(ko_by_round.values()):
         html.append('<div class="section"><h2>🏆 淘汰赛晋级图</h2>')
         total = sum(len(v) for v in ko_by_round.values())
@@ -295,7 +331,6 @@ td {{ padding:5px 6px; border-bottom:1px solid #1e293b; }}
         html.append(render_bracket(ko_by_round))
         html.append('</div>')
 
-    # Champion
     final_ms = ko_by_round.get('决赛', [])
     if final_ms:
         fm = final_ms[0]
@@ -315,47 +350,46 @@ td {{ padding:5px 6px; border-bottom:1px solid #1e293b; }}
 
 def main():
     import sys
-    pred_file = sys.argv[1] if len(sys.argv) > 1 else 'predictions/gpt4_full.json'
+    pred_file = sys.argv[1] if len(sys.argv) > 1 else 'predictions/gpt4.json'
     data = load_json(pred_file)
 
-    # Detect format: group-only ({"A": {"1st":..., "2nd":...}}) or full ({"predictions": [...]})
-    if "predictions" in data and isinstance(data["predictions"], dict):
-        group_preds = data["predictions"]
+    # Detect format
+    if "groups" in data:
+        # New format with optional "knockout"
+        group_preds = data["groups"]
         model_name = data.get("model_name", pred_file.split("/")[-1].replace(".json",""))
-    elif "predictions" in data and isinstance(data["predictions"], list):
-        # Old full format with match predictions
-        print("⚠️  旧格式检测到（含比分预测），正在转换…")
-        preds_by_id = {}
-        for p in data["predictions"]:
-            if p["match_id"].startswith("GRP_"):
-                preds_by_id[p["match_id"]] = p
-
-        all_teams = {
-            "A":["墨西哥","南非","韩国","捷克"],"B":["加拿大","波黑","卡塔尔","瑞士"],
-            "C":["巴西","摩洛哥","海地","苏格兰"],"D":["美国","巴拉圭","澳洲","土耳其"],
-            "E":["德国","库拉索","科特迪瓦","厄瓜多尔"],"F":["荷兰","日本","瑞典","突尼斯"],
-            "G":["比利时","埃及","伊朗","新西兰"],"H":["西班牙","佛得角","沙特","乌拉圭"],
-            "I":["法国","塞内加尔","伊拉克","挪威"],"J":["阿根廷","阿尔及利亚","奥地利","约旦"],
-            "K":["葡萄牙","刚果","乌兹别克","哥伦比亚"],"L":["英格兰","克罗地亚","加纳","巴拿马"],
-        }
-        group_preds = {}
-        for g in sorted(all_teams):
-            grp_match_ids = [f"GRP_{g}_{i}" for i in range(1,7)]
-            pts = defaultdict(int)
-            for mid in grp_match_ids:
-                p = preds_by_id.get(mid)
-                if not p: continue
+        ko_preds = data.get("knockout", {})
+        ko_by_round = build_ko_from_predictions(group_preds, ko_preds)
+    elif "predictions" in data:
+        raw = data["predictions"]
+        if isinstance(raw, dict):
+            group_preds = raw
+            model_name = data.get("model_name", pred_file.split("/")[-1].replace(".json",""))
+            ko_by_round = build_ko_from_predictions(group_preds, {})
+        elif isinstance(raw, list):
+            # Legacy full match format
+            print("⚠️  旧格式检测到，转换为分组预测…")
+            pts = defaultdict(lambda: defaultdict(int))
+            for p in raw:
+                if not p["match_id"].startswith("GRP_"): continue
+                g = p["match_id"].split("_")[1]
                 ta, tb = p["team_a"], p["team_b"]
                 sa, sb = p["predicted_score_a"], p["predicted_score_b"]
-                if sa > sb: pts[ta] += 3; pts[tb] += 0
-                elif sa < sb: pts[tb] += 3; pts[ta] += 0
-                else: pts[ta] += 1; pts[tb] += 1
-            sorted_teams = sorted(pts.keys(), key=lambda t: -pts[t])
-            if len(sorted_teams) >= 2:
-                group_preds[g] = {"1st": sorted_teams[0], "2nd": sorted_teams[1]}
-        model_name = data.get("model_name", "GPT-4")
+                if sa > sb: pts[g][ta] += 3; pts[g][tb] += 0
+                elif sa < sb: pts[g][tb] += 3; pts[g][ta] += 0
+                else: pts[g][ta] += 1; pts[g][tb] += 1
+            group_preds = {}
+            for g in sorted(ALL_TEAMS):
+                if g not in pts: continue
+                st = sorted(pts[g].keys(), key=lambda t: -pts[g][t])
+                if len(st) >= 2:
+                    group_preds[g] = {"1st": st[0], "2nd": st[1]}
+            model_name = data.get("model_name", pred_file.split("/")[-1].replace(".json",""))
+            ko_by_round = build_ko_from_predictions(group_preds, {})
+    else:
+        print("❌ 无法识别的文件格式")
+        return
 
-    ko_by_round = bracket_from_group_preds(group_preds)
     html = generate_html(group_preds, model_name, ko_by_round)
 
     out = os.path.join(BASE_DIR, 'predictions_dashboard.html')
@@ -363,7 +397,6 @@ def main():
         f.write(html)
     print(f'✅ 仪表盘已生成: {out}')
     print(f'   模型: {model_name}')
-    print(f'   在浏览器中打开查看可视化结果')
 
 if __name__ == '__main__':
     main()

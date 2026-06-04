@@ -22,15 +22,22 @@ def calc_standings(predictions, group_prefix):
         else: teams[ta]['d'] += 1; teams[tb]['d'] += 1; teams[ta]['pts'] += 1; teams[tb]['pts'] += 1
     return sorted(teams.items(), key=lambda x: (-x[1]['pts'], -(x[1]['gf'] - x[1]['ga']), -x[1]['gf']))
 
+SHORT_NAMES = {
+    "澳大利亚":"澳洲", "沙特阿拉伯":"沙特", "刚果民主共和国":"刚果", "乌兹别克斯坦":"乌兹别克",
+}
+
+def short_name(name):
+    return SHORT_NAMES.get(name, name)
+
 def get_iso2(team_name):
     iso = {"墨西哥":"MX","南非":"ZA","韩国":"KR","捷克":"CZ","加拿大":"CA","波黑":"BA",
         "卡塔尔":"QA","瑞士":"CH","巴西":"BR","摩洛哥":"MA","海地":"HT","苏格兰":"GB",
-        "美国":"US","巴拉圭":"PY","澳大利亚":"AU","土耳其":"TR","德国":"DE","库拉索":"CW",
+        "美国":"US","巴拉圭":"PY","澳洲":"AU","土耳其":"TR","德国":"DE","库拉索":"CW",
         "科特迪瓦":"CI","厄瓜多尔":"EC","荷兰":"NL","日本":"JP","瑞典":"SE","突尼斯":"TN",
         "比利时":"BE","埃及":"EG","伊朗":"IR","新西兰":"NZ","西班牙":"ES","佛得角":"CV",
-        "沙特阿拉伯":"SA","乌拉圭":"UY","法国":"FR","塞内加尔":"SN","伊拉克":"IQ","挪威":"NO",
+        "沙特":"SA","乌拉圭":"UY","法国":"FR","塞内加尔":"SN","伊拉克":"IQ","挪威":"NO",
         "阿根廷":"AR","阿尔及利亚":"DZ","奥地利":"AT","约旦":"JO","葡萄牙":"PT",
-        "刚果民主共和国":"CD","乌兹别克斯坦":"UZ","哥伦比亚":"CO","英格兰":"GB","克罗地亚":"HR",
+        "刚果":"CD","乌兹别克":"UZ","哥伦比亚":"CO","英格兰":"GB","克罗地亚":"HR",
         "加纳":"GH","巴拿马":"PA"}
     return iso.get(team_name, "UN").lower()
 
@@ -59,21 +66,15 @@ def render_bracket(ko_by_round, ko_order):
     tp_ids  = [i for i in sorted_ids if int(i.split('_')[1]) == 32]
 
     def card(m):
-        if not m: return '<div class="bc"><span></span><span></span><span></span></div>'
-        ta, tb = m['team_a'], m['team_b']
+        if not m: return '<div class="bc"><span></span><span></span><span></span><span></span><span></span></div>'
+        ta, tb = short_name(m['team_a']), short_name(m['team_b'])
         sa, sb = m['predicted_score_a'], m['predicted_score_b']
         w = m.get('predicted_winner', '')
-        t1_w = w == 'team_a'; t2_w = w == 'team_b'
-        if t1_w:
-            l = f'<span class="bw">{flag_span(ta)} {ta}</span>'
-            r = f'<span class="bl">{tb} {flag_span(tb)}</span>'
-        elif t2_w:
-            l = f'<span class="bl">{flag_span(ta)} {ta}</span>'
-            r = f'<span class="bw">{tb} {flag_span(tb)}</span>'
-        else:
-            l = f'<span>{flag_span(ta)} {ta}</span>'
-            r = f'<span>{tb} {flag_span(tb)}</span>'
-        return f'<div class="bc">{l}<span class="bs">{sa}:{sb}</span>{r}</div>'
+        fl = flag_span(ta); fr = flag_span(tb)
+        if w == 'team_a': l_cls, r_cls = 'bw', 'bl'
+        elif w == 'team_b': l_cls, r_cls = 'bl', 'bw'
+        else: l_cls, r_cls = '', ''
+        return f'<div class="bc"><span style="text-align:right;">{fl}</span><span style="text-align:right;"><span class="{l_cls}">{ta}</span></span><span class="bs">{sa}:{sb}</span><span style="text-align:left;"><span class="{r_cls}">{tb}</span></span><span style="text-align:left;">{fr}</span></div>'
 
     def row_range(idx, total_in_round):
         """Return (start, end) 1-indexed grid rows for match idx in a round with total_in_round matches."""
@@ -163,12 +164,12 @@ th {{ text-align:left; padding:4px 6px; color:#94a3b8; font-weight:500; border-b
 td {{ padding:4px 6px; border-bottom:1px solid #1e293b; }}
 .rank-1 {{ color:#22c55e; font-weight:700; }}
 .rank-2 {{ color:#38bdf8; font-weight:700; }}
-.match-row {{ display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:7px 0; gap:4px; }}
+.match-row {{ display:grid; grid-template-columns:28px 1fr 42px 1fr 28px; align-items:center; padding:6px 0; }}
 .match-sep {{ border-bottom:1px solid #1e293b; }}
-.team-name {{ font-weight:500; font-size:0.88rem; white-space:nowrap; }}
-.score-num {{ font-weight:700; color:#f59e0b; font-size:1.05rem; min-width:40px; text-align:center; }}
-.win-badge {{ display:inline-block; background:#22c55e; color:#052e16; font-size:0.62rem; padding:1px 5px; border-radius:4px; font-weight:600; }}
-.draw-badge {{ display:inline-block; background:#64748b; color:#0f172a; font-size:0.62rem; padding:1px 5px; border-radius:4px; font-weight:600; }}
+.team-name {{ font-weight:500; font-size:0.88rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }}
+.score-num {{ font-weight:700; color:#f59e0b; font-size:1.05rem; text-align:center; }}
+.tw {{ background:rgba(34,197,94,0.25); border-radius:4px; padding:2px 6px; font-weight:700; color:#22c55e; }}
+.tl {{ color:#64748b; }}
 .reason {{ font-size:0.7rem; color:#64748b; font-style:italic; }}
 .stats-row {{ display:flex; gap:16px; flex-wrap:wrap; }}
 .stat-card {{ background:#0f172a; border-radius:8px; padding:12px 18px; text-align:center; border:1px solid #334155; flex:1; min-width:100px; }}
@@ -182,11 +183,10 @@ td {{ padding:4px 6px; border-bottom:1px solid #1e293b; }}
 .bracket-grid {{ display:grid; gap:0; min-width:800px; align-items:stretch; }}
 .rl {{ font-size:0.72rem; color:#94a3b8; font-weight:600; text-align:center; padding:4px; border-bottom:1px solid #334155; display:flex; align-items:center; justify-content:center; text-transform:uppercase; letter-spacing:1px; }}
 .bracket-match {{ display:flex; align-items:center; padding:2px; }}
-.bc {{ background:#0f172a; border:1px solid #334155; border-radius:6px; padding:4px 8px; width:100%; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:4px; font-size:0.72rem; line-height:1.3; }}
-.bc > span:first-child {{ text-align:left; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }}
-.bc > span:last-child {{ text-align:right; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }}
-.bc .bw {{ color:#22c55e; font-weight:600; }}
-.bc .bl {{ color:#64748b; }}
+.bc {{ background:#0f172a; border:1px solid #334155; border-radius:6px; padding:3px 6px; width:100%; display:grid; grid-template-columns:20px 1fr 30px 1fr 20px; align-items:center; gap:2px; font-size:0.72rem; line-height:1.3; }}
+.bc > span {{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }}
+.bc .bw {{ background:rgba(34,197,94,0.25); border-radius:3px; padding:1px 4px; font-weight:700; color:#22c55e; }}
+.bc .bl {{ color:#94a3b8; }}
 .bc .bs {{ color:#f59e0b; font-weight:700; text-align:center; }}
 .bf .bc {{ border-color:#f59e0b; border-width:2px; }}
 .tp-section {{ text-align:center; margin-top:8px; padding:6px; background:#0f172a; border-radius:6px; border:1px solid #334155; }}
@@ -222,19 +222,20 @@ td {{ padding:4px 6px; border-bottom:1px solid #1e293b; }}
         g_ms = sorted(groups[g], key=lambda x: x['match_id'])
         html.append(f'<div class="group-card"><h3>{g}组</h3>')
         for m in g_ms:
-            ta, tb = m['team_a'], m['team_b']
+            ta, tb = short_name(m['team_a']), short_name(m['team_b'])
             sa, sb = m['predicted_score_a'], m['predicted_score_b']
-            w = m.get('predicted_winner',''); c = m.get('confidence',0); r = m.get('reasoning','')
-            badge = ''
-            if w == 'team_a': badge = '<span class="win-badge">WIN</span>'; t1d = f'<strong>{ta}</strong>'; t2d = tb
-            elif w == 'team_b': badge = '<span class="win-badge">WIN</span>'; t1d = ta; t2d = f'<strong>{tb}</strong>'
-            else: badge = '<span class="draw-badge">平</span>'; t1d = ta; t2d = tb
+            w = m.get('predicted_winner','')
+            if w == 'team_a': t1_cls = 'tw'; t2_cls = 'tl'
+            elif w == 'team_b': t1_cls = 'tl'; t2_cls = 'tw'
+            else: t1_cls = ''; t2_cls = ''
             f1 = flag_span(ta); f2 = flag_span(tb)
             html.append(f'''
 <div class="match-row match-sep">
-<div style="text-align:right;overflow:hidden;text-overflow:ellipsis;">{f1} <span class="team-name">{t1d}</span></div>
+<div style="text-align:right;">{f1}</div>
+<div style="text-align:right;"><span class="team-name {t1_cls}">{ta}</span></div>
 <span class="score-num">{sa}:{sb}</span>
-<div style="text-align:left;overflow:hidden;text-overflow:ellipsis;"><span class="team-name">{t2d}</span> {f2} {badge}</div>
+<div style="text-align:left;"><span class="team-name {t2_cls}">{tb}</span></div>
+<div style="text-align:left;">{f2}</div>
 </div>''')
         html.append('</div>')
     html.append('</div></div>')
@@ -247,8 +248,8 @@ td {{ padding:4px 6px; border-bottom:1px solid #1e293b; }}
             for i, (team, s) in enumerate(st):
                 cls = 'rank-1' if i == 0 else ('rank-2' if i == 1 else '')
                 rk = '🥇' if i == 0 else ('🥈' if i == 1 else str(i+1))
-                f = flag_span(team)
-                html.append(f'<tr class="{cls}"><td>{rk}</td><td>{f} {team}</td><td>{s["p"]}</td><td>{s["w"]}</td><td>{s["d"]}</td><td>{s["l"]}</td><td>{s["gf"]}</td><td>{s["ga"]}</td><td>{s["gf"]-s["ga"]}</td><td><strong>{s["pts"]}</strong></td></tr>')
+                td = short_name(team); f = flag_span(td)
+                html.append(f'<tr class="{cls}"><td>{rk}</td><td>{f} {td}</td><td>{s["p"]}</td><td>{s["w"]}</td><td>{s["d"]}</td><td>{s["l"]}</td><td>{s["gf"]}</td><td>{s["ga"]}</td><td>{s["gf"]-s["ga"]}</td><td><strong>{s["pts"]}</strong></td></tr>')
             html.append('</table></div>')
         html.append('</div></div>')
 
@@ -264,8 +265,8 @@ td {{ padding:4px 6px; border-bottom:1px solid #1e293b; }}
     final_ms = ko_by_round.get('决赛', [])
     if final_ms:
         fm = final_ms[0]
-        champ = fm['team_a'] if fm['predicted_winner'] == 'team_a' else fm['team_b']
-        runner = fm['team_b'] if fm['predicted_winner'] == 'team_a' else fm['team_a']
+        champ = short_name(fm['team_a'] if fm['predicted_winner'] == 'team_a' else fm['team_b'])
+        runner = short_name(fm['team_b'] if fm['predicted_winner'] == 'team_a' else fm['team_a'])
         f_champ = flag_span(champ)
         html.append(f'''
 <div class="section" style="text-align:center;border:2px solid #f59e0b;">
